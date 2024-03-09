@@ -1,0 +1,2413 @@
+"name = input(""What's your name? "")
+age = int(input(""How old are you? ""))
+
+future_age = age + 10
+print(""Hi "" + name + "", in 10 years you will be "" + str(future_age) + "" years old."")"
+"user_input = input(""Enter something: "")
+
+if user_input.isdigit():
+    print(user_input + "" is a number."")
+else:
+    print(user_input + "" is not a number."")
+"
+"import random
+
+random_number = random.randint(1, 10)
+
+while True:
+    guess = int(input(""Guess a number between 1 and 10: ""))
+    
+    if guess == random_number:
+        print(""Congratulations! You guessed the number."")
+        break
+    elif guess < random_number:
+        print(""Your guess is too low. Try again."")
+    else:
+        print(""Your guess is too high. Try again."")"
+"number = int(input(""Enter a number: ""))
+
+if number % 2 == 0:
+    print(number, ""is even"")
+else:
+    print(number, ""is odd"")"
+"sentence = input(""Enter a sentence: "")
+
+# split the sentence into words
+words = sentence.split()
+
+# count the number of words
+num_words = len(words)
+
+# print the result
+print(""The sentence has"", num_words, ""words."")"
+"def main():
+    # Get input from the user
+    num1 = float(input(""Enter the first number: ""))
+    num2 = float(input(""Enter the second number: ""))
+    operation = input(""Choose an operation (addition, subtraction, multiplication, division): "")
+
+    # Perform the chosen operation and print the result
+    if operation.lower() == ""addition"":
+        result = num1 + num2
+        print(f""{num1} + {num2} = {result}"")
+    elif operation.lower() == ""subtraction"":
+        result = num1 - num2
+        print(f""{num1} - {num2} = {result}"")
+    elif operation.lower() == ""multiplication"":
+        result = num1 * num2
+        print(f""{num1} * {num2} = {result}"")
+    elif operation.lower() == ""division"":
+        if num2 == 0:
+            print(""Error: Division by zero is not allowed."")
+        else:
+            result = num1 / num2
+            print(f""{num1} / {num2} = {result}"")
+    else:
+        print(""Error: Invalid operation. Please choose addition, subtraction, multiplication, or division."")
+
+if __name__ == ""__main__"":
+    main()
+"
+"import pandas as pd
+from collections import Counter
+
+try:
+    file_path = input(""Please enter the file path of the text file to analyze: "")
+    file_path = file_path.replace('""', '').replace(""\\"", ""/"")
+
+    with open(file_path, ""r"") as file:
+        data = file.read()
+
+except FileNotFoundError:
+    print(""Error: The file at the specified path does not exist. Please check the file path and try again."")
+    # Don't need to use exit() here. The program will stop naturally if the file doesn't exist.
+
+else:
+    words = Counter(data.split())
+    
+    while True:
+        try:
+            top_n = int(input(""Please enter the number of top frequent words you would like to see: ""))
+            if top_n <= 0: 
+                print(""Error: Please enter a positive integer."")
+            else:
+                break
+        except ValueError:
+            print(""Error: Invalid input. Please enter a positive integer."")
+            
+    top_n_words = words.most_common(top_n)
+    
+    print(""Displaying the top "", top_n, "" most frequent words: "")
+    for keys in top_n_words:
+        print(""'"",keys[0],""' appears "", keys[1], "" times."")
+        
+    print(""Thank you for using the Word Frequency Counter program."")
+"
+"print(""Rectangle Area and Perimeter Calculator"")
+
+while True:
+    try:
+        length = float(input(""Enter the length of the rectangle: ""))
+        if length > 0:
+            break
+        else:
+            print(""Invalid input. Please enter a positive number."")
+    except ValueError:
+        print(""Invalid input. Please enter a positive number."")
+
+while True:
+    try:
+        width = float(input(""Enter the width of the rectangle: ""))
+        if width > 0:
+            break
+        else:
+            print(""Invalid input. Please enter a positive number."")
+    except ValueError:
+        print(""Invalid input. Please enter a positive number."")
+
+area = length * width
+perimeter = 2 * (length + width)
+
+print(f""The area of the rectangle is {area:.2f} square units."")
+print(f""The perimeter of the rectangle is {perimeter:.2f} units."")
+"
+"import math
+
+while True:
+    try:
+        length = int(input(""Enter length: ""))
+        width = int(input(""Enter width: ""))
+        radius = int(input(""Enter radius: ""))
+
+        area_rect = length* width
+        area_circle = math.pi*radius*radius
+        print(""Area of rectangle: "", area_rect)
+        print(""Area of circle: "", area_circle)
+        response = input(""Do you want to compute again? "").lower()
+        if response != ""yes"":
+            break
+    except:
+        print(""Entered invalid input. Try again"")
+    
+"
+"def get_text_input():
+    return input(""Enter a string of text: "")
+
+def count_words(text):
+    return len(text.split())
+
+def count_characters(text):
+    return len(''.join(text.split()))
+
+def main():
+    text = get_text_input()
+    word_count = count_words(text)
+    character_count = count_characters(text)
+
+    print(f""Word count: {word_count}"")
+    print(f""Character count (excluding whitespace): {character_count}"")
+
+if __name__ == ""__main__"":
+    main()
+"
+"def sum_even_numbers(numbers_list):
+    even_sum = 0
+    for number in numbers_list:
+        if number % 2 == 0:
+            even_sum += number
+    return even_sum
+
+# Take input from the user
+user_input = input(""Enter a list of positive integers separated by spaces: "")
+
+# Convert user input into a list of integers
+input_list = [int(num) for num in user_input.split()]
+
+# Call the function and print the result
+result = sum_even_numbers(input_list)
+print(""The sum of even numbers in the list is:"", result)
+"
+"def convert_to_minutes(time_str):
+        hrs, mins = map(int, time_str.split("":""))
+        return hrs*60 + mins
+
+def get_duration(start_time, end_time):
+        end_time_mins = convert_to_minutes(end_time) 
+        start_time_mins = convert_to_minutes(start_time)
+        if end_time_mins < start_time_mins:
+                duration = end_time_mins + 24*60 - start_time_mins
+        else:
+                duration = end_time_mins - start_time_mins
+        return duration
+
+def main:
+        start_time = convert_to_minutes(input(""Enter start time (HH:MM): ""))
+        end_time = convert_to_minutes(input(""Enter end time (HH:MM): ""))
+
+        duration = get_duration(start_time, end_time)
+
+        print(""Your workout lasted "", duration, "" minutes."")
+
+if __name__ == ""__main__"":
+        main()"
+
+"def main():
+        sum = 0
+        while True:
+
+                response = input(""Enter Clickers or type 'quit' to exit: "").lower()
+                if response == 'quit':
+                        break
+                try:        
+                        clicker = int(response)
+                        if clicker > 0:
+                                sum += clicker
+                                print(""Total Clickers: "", sum)
+                except:
+                        print(""Your input is invalid. Try again."")
+
+if __name__ == ""__main__"":
+    main()"
+"def main():
+        
+        while True:
+                speed = 15
+                response = input(""Enter the distance between 2 locations: "")
+                if response == 'quit':
+                        break
+                try:
+                        raw_distance = float(response)
+                        raw_hours = int(raw_distance)/speed
+                        hours = int(raw_hours)
+                        raw_minutes = (raw_distance/speed - hours)
+                        minutes = int(60 * raw_minutes)
+
+                        print(""Jin will take "", hours, "" hours and "", minutes, "" minutes to travel the distance."")
+
+                except:
+                        print(""Your response is invalid. Try again."")
+
+
+
+
+
+if __name__ == ""__main__"":
+        main()"
+"def main():
+        name = input(""Enter your character's name: "")
+        while True:
+                classchar = input(""Choose a character class (Warrior, Hunter, Assassin): "").lower()
+                try:
+                        if classchar == ""warrior"":
+                                print(""Character created! "", name, "" is a Warrior."")
+                                break
+                        elif classchar == ""hunter"":
+                                print(""Character created! "", name, "" is a Hunter."")
+                                break
+                        elif classchar == ""assassin"":
+                                print(""Character created! "", name, "" is an Assassin."")
+                                break
+                        else:
+                                print(""Invalid character class. Please try again."")
+                except:
+                        print(""Invalid character class. Please try again."")
+
+if __name__ == ""__main__"":
+        main()"
+"import random
+
+class Child:
+    def __init__ (self,name):
+        self.name = name
+        self.eggs_collected = 0
+    def collect_egg(self):
+        self.eggs_collected += 1
+
+class EggCounter:
+    def __init__ (self):
+        self.total_eggs = 0
+    def add_egg(self):
+        self.total_eggs +=1
+
+def egg_hunt(Children, egg_counter):
+    
+    for x in Children:
+        num_eggs = random.randint(1,5)
+        for _ in range(num_eggs):
+            x.collect_egg()
+            egg_counter.add_egg()
+
+
+Ash = Child(""Ash"")
+Noddy = Child(""Noddy"")
+Moira = Child(""Moira"")
+
+egg_counter = EggCounter()
+
+Children = [Ash,Noddy,Moira]
+
+egg_hunt(Children, egg_counter)
+
+eggs_sum = 0
+for x in Children:
+    print(x.name, "" has "", x.eggs_collected, "" eggs"")
+    eggs_sum += x.eggs_collected
+print(""Total eggs: "", eggs_sum)
+
+
+
+"
+"def add_task():
+    task = {}
+    task_name = input(""Enter task: "")
+    time_spent = float(input(""Enter time spent: ""))
+    task[task_name] = time_spent
+    return task
+
+def display_summary(task_list):
+    print(""Total tasks: "", len(task_list))
+    print(""Here are the tasks: "")
+    total_time = 0
+    for x in task_list:
+        for task_name, task_time in x.items():
+            print(task_name)
+            total_time += task_time
+    print(""Total time spent: "", total_time)
+
+def main():
+    tasks_completed = []
+    temptask =[]
+
+    no_tasks = int(input(""How many tasks did you do? ""))
+
+    while no_tasks > 0:
+        temptask = add_task()
+        tasks_completed.append(temptask)
+        no_tasks -= 1
+    
+    display_summary(tasks_completed)
+
+if __name__== ""__main__"":
+    main()"
+
+"import random
+
+def list_your_activities():
+    print(""Rate these activities from 1 to 5:"")
+    activities = ['Beach relaxation', 'Water sports', 'Island hopping', 'Nightlife', 'Local cuisine']
+    ratings = {activity: int(input(f""{activity}: "")) for activity in activities}
+    return ratings
+
+def generate_itinerary(activities):
+    activities = sorted(activities.items(), key=lambda x: x[1], reverse=True)
+    itinerary = [[activities[0][0], activities[1][0]], [activities[0][0], activities[1][0], activities[2][0]]]
+    random.shuffle(itinerary[1])
+    itinerary.append(itinerary[0] + [itinerary[1][-1]])
+    return itinerary
+
+def main():
+    ratings = list_your_activities()
+    itinerary = generate_itinerary(ratings)
+    for i, day in enumerate(itinerary, start=1):
+        print(f""Day {i}:"")
+        for activity in day:
+            print(f""- {activity}"")
+
+if __name__ == ""__main__"":
+    main()
+"
+"from datetime import datetime, timedelta
+
+def morning_schedule(name, wake_up_time):
+    time_format = '%H:%M'
+    wake_up_datetime = datetime.strptime(wake_up_time, time_format)
+
+    getting_ready_time = wake_up_datetime + timedelta(minutes=30)
+    breakfast_time = getting_ready_time + timedelta(minutes=30)
+    commute_time = breakfast_time + timedelta(minutes=45)
+    morning_meeting_time = commute_time + timedelta(minutes=60)
+
+    print(f""Monday Morning Schedule for {name}:"")
+    print(f""Wake up: {wake_up_time}"")
+    print(f""Getting ready: {getting_ready_time.strftime(time_format)}"")
+    print(f""Breakfast: {breakfast_time.strftime(time_format)}"")
+    print(f""Commute: {commute_time.strftime(time_format)}"")
+    print(f""Morning meeting: {morning_meeting_time.strftime(time_format)}"")
+
+user_name = input(""Enter your name: "")
+user_wake_up_time = input(""Enter your wake-up time on Monday (HH:MM): "")
+
+morning_schedule(user_name, user_wake_up_time)
+"
+"games = [
+    {
+        ""game_number"": 1,
+        ""miami_heat"": {
+            ""LeBron James"": {""points"": 18, ""rebounds"": 18, ""assists"": 10},
+            ""Dwyane Wade"": {""points"": 17, ""rebounds"": 2, ""assists"": 2},
+            ""Chris Bosh"": {""points"": 13, ""rebounds"": 5, ""assists"": 0},
+        },
+        ""san_antonio_spurs"": {
+            ""Tony Parker"": {""points"": 21, ""rebounds"": 0, ""assists"": 6},
+            ""Tim Duncan"": {""points"": 20, ""rebounds"": 14, ""assists"": 4},
+            ""Manu Ginobili"": {""points"": 13, ""rebounds"": 3, ""assists"": 4},
+        },
+    },
+    {
+        ""game_number"": 2,
+        ""miami_heat"": {
+            ""LeBron James"": {""points"": 17, ""rebounds"": 8, ""assists"": 7},
+            ""Dwyane Wade"": {""points"": 10, ""rebounds"": 2, ""assists"": 6},
+            ""Chris Bosh"": {""points"": 12, ""rebounds"": 10, ""assists"": 0},
+        },
+        ""san_antonio_spurs"": {
+            ""Tony Parker"": {""points"": 13, ""rebounds"": 2, ""assists"": 5},
+            ""Tim Duncan"": {""points"": 9, ""rebounds"": 11, ""assists"": 3},
+            ""Manu Ginobili"": {""points"": 5, ""rebounds"": 1, ""assists"": 3},
+        },
+    },
+    {
+        ""game_number"": 3,
+        ""miami_heat"": {
+            ""LeBron James"": {""points"": 15, ""rebounds"": 11, ""assists"": 5},
+            ""Dwyane Wade"": {""points"": 16, ""rebounds"": 4, ""assists"": 2},
+            ""Chris Bosh"": {""points"": 12, ""rebounds"": 10, ""assists"": 3},
+        },
+        ""san_antonio_spurs"": {
+            ""Tony Parker"": {""points"": 6, ""rebounds"": 3, ""assists"": 8},
+            ""Tim Duncan"": {""points"": 12, ""rebounds"": 14, ""assists"": 2},
+            ""Manu Ginobili"": {""points"": 7, ""rebounds"": 3, ""assists"": 6},
+        },
+    },
+]
+
+
+def heat_totals(games):
+    total_points = 0
+    total_reb = 0
+    total_ast = 0
+    for game in games:
+        for x,y in game.items():
+            if x == ""miami_heat"":
+                for stats in y.values():
+                    for stat, stat_value in stats.items():
+                        if stat == ""points"":
+                            total_points += stat_value
+                        elif stat == ""rebounds"":
+                            total_reb += stat_value
+                        elif stat == ""assists"":
+                            total_ast += stat_value
+    return total_points, total_reb, total_ast
+
+def spurs_totals(games):
+    total_points = 0
+    total_reb = 0
+    total_ast = 0
+    for game in games:
+        for x,y in game.items():
+            if x == ""san_antonio_spurs"":
+                for stats in y.values():
+                    for stat, stat_value in stats.items():
+                        if stat == ""points"":
+                            total_points += stat_value
+                        elif stat == ""rebounds"":
+                            total_reb += stat_value
+                        elif stat == ""assists"":
+                            total_ast += stat_value
+    return total_points, total_reb, total_ast
+
+def player_avg(games,player):
+    total_points = 0
+    total_reb = 0
+    total_ast = 0
+    for game in games:
+        for x,y in game.items():
+            if isinstance(y, int) == False:
+                for k,v in y.items():
+                    if k == player:
+                        for stat, stat_value in v.items():
+                            if stat == ""points"":
+                                total_points += stat_value
+                            elif stat == ""rebounds"":
+                                total_reb += stat_value
+                            elif stat == ""assists"":
+                                total_ast += stat_value
+    return (total_points, total_reb, total_ast)
+'''for stat, stat_value in stats.items():
+                    if stat == ""points"":
+                        total_points += stat_value
+                    elif stat == ""rebounds"":
+                        total_reb += stat_value
+                    elif stat == ""assists"":
+                        total_ast += stat_value
+    return total_points, total_reb, total_ast'''
+
+heat_box_score = []
+spurs_box_score = []
+
+heat_box_score = heat_totals(games)
+
+spurs_box_score = spurs_totals(games)
+
+print(""Heat Box Score: "", heat_box_score[0], "" pts, "", heat_box_score[1], "" reb, & "", heat_box_score[2], "" ast"")
+print(""Spurs Box Score: "", spurs_box_score[0], "" pts, "", spurs_box_score[1], "" reb, & "", spurs_box_score[2], "" ast"")
+
+
+for game in games:
+        for x,y in game.items():
+            if isinstance(y, int) == False:
+                for k in y:
+                    print(k, ""stats: "", player_avg(games, k)[0], "" pts, "", player_avg(games, k)[1], "" reb, "", player_avg(games, k)[2], "" ast"")
+
+def findhighestscoringplayer(games):
+    highest_scoring_player = """"
+    highest_score =0
+    for game in games:
+        for x,y in game.items():
+            if isinstance(y, int) == False:
+                for k in y:
+                    print(k, ""stats: "", player_avg(games, k)[0], "" pts, "", player_avg(games, k)[1], "" reb, "", player_avg(games, k)[2], "" ast"")
+                    if player_avg(games, k)[0] > highest_score:
+                        highest_score = player_avg(games, k)[0]
+                        highest_scoring_player = k
+    return highest_scoring_player
+
+player = findhighestscoringplayer(games)
+
+def team_totals(games):
+    total_points = 0
+    total_reb = 0
+    total_ast = 0
+    for game in games:
+        #print(game)
+        for x,y in game.items():
+            for stats in y:
+                for stat, stat_value in stats.items():
+                    if stat == ""points"":
+                        total_points += stat_value
+                    elif stat == ""rebounds"":
+                        total_reb += stat_value
+                    elif stat == ""assists"":
+                        total_ast += stat_value
+    return total_points, total_reb, total_ast
+
+team_totals(games)"
+"import pandas as pd
+
+def count_players(data, position):
+    tot_players = 0
+    for player in data:
+        if player[""position""] == position:
+            tot_players += 1
+    return tot_players
+
+def calculate_averages(data, position):
+    tot_pts = 0
+    tot_reb = 0
+    tot_ast = 0
+    tot_games = 0
+    tot_occur = 0
+    for player in data:
+        if player[""position""] == position:
+            tot_pts += player[""points""]
+            tot_reb += player[""rebounds""]
+            tot_ast += player[""assists""]
+            tot_games +=player[""games_played""]
+            tot_occur += 1
+    avg_pts = tot_pts/tot_games
+    avg_reb = tot_reb/tot_games
+    avg_ast = tot_ast/tot_games
+    avg_games = tot_games/tot_occur
+
+    avg_pts = format(avg_pts, "".2f"")
+    avg_reb = format(avg_reb, "".2f"")
+    avg_ast = format(avg_ast, "".2f"")
+    avg_games = format(avg_games, "".2f"")
+
+    print(""PPG: "", avg_pts, "" RPG: "", avg_reb, "" APG: "", avg_ast)
+    print(""Average games played: "",avg_games)   
+    #return tot_players
+
+data = pd.read_json(r""C:\Users\Lenovo\Desktop\Python\GSW.json"")
+
+data_list = data.to_dict(orient=""records"")
+
+
+position = input(""Enter Position: "")
+
+print(count_players(data_list, position))
+calculate_averages(data_list, position)"
+"from datetime import datetime, timedelta
+
+task_list = [
+    [""Prepare presentation"", ""High"", ""9:00 AM"", ""11:00 AM"", ""Not Completed""],
+    [""Attend team meeting"", ""Medium"", ""11:30 AM"", ""12:30 PM"", ""Not Completed""]
+]
+
+def print_tasks(task_list):
+    task_num = 1
+    for task in task_list:
+        print(task_num, "". Task: "", task[0], "" | Priority: "", task[1], "" | Start Time: "", task[2], "" | End Time: "", task[3], "" | Status: "", task[4])
+        task_num +=1
+def calculate_tot_work_hours(task_list):
+    tot_work_hours = timedelta()
+    for task in task_list:
+        t2 = datetime.strptime(task[3], ""%I:%M %p"")
+        t1 = datetime.strptime(task[2], ""%I:%M %p"")
+        delta = t2 - t1
+        tot_work_hours += delta
+    return tot_work_hours.total_seconds()/3600
+
+def print_choice():
+    print(""What would you like to do?"")
+    print(""1. Add a task"")
+    print(""2. Edit a task"")
+    print(""3. Remove a task"")
+    print(""4. Mark a task as completed"")
+    choice = int(input(""5. Exit program\n""))
+    return choice
+
+def add_task(task_list):
+    while True:
+        new_task = []
+        try: 
+            new_task.append(input(""Enter task name: ""))
+            new_task.append(input(""Priority: ""))
+            new_task.append(input(""Start Time: ""))
+            new_task.append(input(""End Time: ""))
+            new_task.append(input(""Status: ""))
+            datetime.strptime(new_task[3], ""%I:%M %p"")
+            datetime.strptime(new_task[2], ""%I:%M %p"")
+            break
+        except:
+            print(""Invalid input."")
+    task_list.append(new_task)
+    return task_list
+
+def edit_task(task_list):
+    choice = int(input(""Choose a task to edit: ""))
+    choice -= 1
+    if choice >= 0 and choice < len(task_list):
+        task = task_list[choice]
+        print(""\n Editing task: "", task[0])
+        field_names = [""Task name"", ""Priority"", ""Start Time"", ""End Time"", ""Status""]
+
+        index = 0
+        for field in field_names:
+            response = input(field, "": "")
+            task[index] = response
+            index += 1
+
+    else:
+        print(""Invalid task number."")
+    return task_list
+
+def remove_task(task_list):
+    choice = int(input(""Choose a task to remove: ""))
+    choice -= 1
+    if choice >= 0 and choice < len(task_list):
+        task = task_list[choice]
+        print(""\n Removing task: "", task[0])
+        del task_list[choice]
+    else:
+        print(""Invalid task number."")
+    return task_list
+
+def mark_complete(task_list):
+    choice = int(input(""Choose a task to mark complete: ""))
+    choice -= 1
+    if choice >= 0 and choice < len(task_list):
+        task = task_list[choice]
+        print(""\n Marking task: "", task[0], "" as complete."")
+        task[4] = ""Complete""
+    else:
+        print(""Invalid task number."")
+    return task_list
+
+while True:
+    print(""Welcome to the Work From Home Schedule Manager"")
+    print_tasks(task_list)
+    print(calculate_tot_work_hours(task_list))
+    choice = print_choice(task_list)
+    try:
+        if choice == 1:
+            task_list = add_task(task_list)
+        elif choice == 2:
+            task_list = edit_task(task_list)
+        elif choice == 3:
+            task_list = remove_task(task_list)
+        elif choice == 4:
+            task_list = mark_complete(task_list)
+        elif choice == 5:
+            break
+        else:
+            print(""Invalid choice. Please Try again."")
+    except:
+        print(""Invalid choice. Please Try again."")
+    
+"
+"import pandas as pd
+import matplotlib.pyplot as plt
+
+data = pd.read_csv(r""C:\Users\Lenovo\Desktop\Python\PS4 Sales.csv"")
+
+data['Total Sales'] = data.iloc[:,-5:].sum(axis=1)
+sorted_data = data.sort_values(by = ""Total Sales"", ascending = False)
+
+print(sorted_data.head(10))
+
+print(""North America sales:"", data[""North America Sales""].sum())
+print(""Europe sales:"", data[""Europe Sales""].sum())
+print(""Japan sales:"", data[""Japan Sales""].sum())
+
+print(data.groupby(""Publisher"")[""Game Title""].size().sort_values(ascending=False).head(3))
+print(data.groupby(""Release Year"")[""Global Sales""].sum().sort_values(ascending=False).head(1))
+
+year_global_sales = data.groupby(""Release Year"")[""Global Sales""].sum()
+plt.scatter(year_global_sales.index, year_global_sales.values)
+plt.xlabel(""Release Year"")
+plt.ylabel(""Global Sales"")
+plt.show()
+"
+"
+import pandas as pd
+import matplotlib.pyplot as mp
+#import seaborn as sns
+
+
+data = pd.read_csv(r""C:\Users\Lenovo\Desktop\Python\Coffee Shop Performance.csv"")
+data
+data[""revenue""] = data[""price""]*data[""sales_volume""]
+data
+top10_coffee_shop_raw = data.sort_values(""revenue"", ascending=False).head(10)
+top10_coffee_shop = top10_coffee_shop_raw[""shop_name""].tolist()
+top10_coffee_shop_revenue = top10_coffee_shop_raw[""revenue""].tolist() 
+
+width = 0.3
+x_positions = [i*width for i in range(len(top10_coffee_shop))]
+
+mp.bar(top10_coffee_shop,top10_coffee_shop_revenue)
+mp.xticks(x_positions, top10_coffee_shop)
+
+mp.xlabel(""Coffee Shop"")
+mp.ylabel(""Revenue"")
+mp.scatter(data[""rating""], data[""price""])
+mp.xlabel(""Rating"")
+mp.ylabel(""Price"")
+mp.hist(data[""rating""])
+mp.hist(data[""reviews_count""])"
+"import pandas as pd
+import matplotlib.pyplot as pp 
+import seaborn as sns
+
+data = pd.read_csv(r""C:\Users\Lenovo\Desktop\Python\Job Promotion.csv"")
+data
+promoted = data[""promotion""].sum()
+not_promoted = len(data) - promoted
+print(""Total employees: "", len(data))
+print(""Number of promoted employees: "", promoted)
+print(""Number of not promoted employees: "", not_promoted)
+perc_promoted = promoted/(len(data))*100
+print(f""Percentage promoted: {perc_promoted: .2f}%"" )
+print(""Promotion rate by department:"")
+HR_promotion = data[(data[""department""]== ""HR"") & (data[""promotion""] == 1)].shape[0]/len(data[data[""department""]== ""HR""])*100
+Finance_promotion = data[(data[""department""]== ""Finance"") & (data[""promotion""] == 1)].shape[0]/len(data[data[""department""]== ""Finance""])*100
+Sales_promotion = data[(data[""department""]== ""Sales"") & (data[""promotion""] == 1)].shape[0]/len(data[data[""department""]== ""Sales""])*100
+IT_promotion = data[(data[""department""]== ""IT"") & (data[""promotion""] == 1)].shape[0]/len(data[data[""department""]== ""IT""])*100
+Marketing_promotion = data[(data[""department""]== ""Marketing"") & (data[""promotion""] == 1)].shape[0]/len(data[data[""department""]== ""Marketing""])*100
+print(f""HR: {HR_promotion: .2f}%"")
+print(f""Finance: {Finance_promotion: .2f}%"")
+print(f""Sales: {Sales_promotion: .2f}%"")
+print(f""IT: {IT_promotion: .2f}%"")
+print(f""Marketing: {Marketing_promotion: .2f}%"")
+print(""Age:"")
+avg_age_promoted = data[data[""promotion""] == 1][""age""].mean()
+avg_age_not_promoted = data[data[""promotion""] == 0][""age""].mean()
+print(f""Average age of promoted employees: {avg_age_promoted: .1f}"")
+print(f""Average age of non-promoted employees: {avg_age_not_promoted: .1f}"")
+sns.histplot(data[""age""])
+print(""Years of Experience:"")
+avg_experience_promoted = data[data[""promotion""] == 1][""years_of_experience""].mean()
+avg_experience_not_promoted = data[data[""promotion""] == 0][""years_of_experience""].mean()
+print(f""Average years of experience of promoted employees: {avg_experience_promoted: .1f}"")
+print(f""Average years of experience of non-promoted employees: {avg_experience_not_promoted: .1f}"")
+grouped_data = data.groupby(""years_of_experience"")[""promotion""].count().reset_index()
+#grouped_data = data.groupby(""years_of_experience"")[""promotion""].mean()
+grouped_data
+sns.barplot(x=data[""years_of_experience""],y=data[""promotion""], data=grouped_data)
+print(""Performance Score:"")
+avg_performance_promoted = data[data[""promotion""] == 1][""performance_score""].mean()
+avg_performance_not_promoted = data[data[""promotion""] == 0][""performance_score""].mean()
+print(f""Average years of performance of promoted employees: {avg_experience_promoted: .1f}"")
+print(f""Average years of performance of non-promoted employees: {avg_experience_not_promoted: .1f}"")
+x_data = [""Promoted"", ""Not Promoted""]
+y_data = [avg_performance_promoted, avg_performance_not_promoted]
+sns.barplot(x = x_data, y = y_data)
+data
+print(""Education Level:"")
+HS_promotion = data[(data[""education_level""]== ""High School"") & (data[""promotion""] == 1)].shape[0]/len(data[data[""education_level""]== ""High School""])*100
+B_promotion = data[(data[""education_level""]== ""Bachelor's"") & (data[""promotion""] == 1)].shape[0]/len(data[data[""education_level""]== ""Bachelor's""])*100
+M_promotion = data[(data[""education_level""]== ""Master's"") & (data[""promotion""] == 1)].shape[0]/len(data[data[""education_level""]== ""Master's""])*100
+PHD_promotion = data[(data[""education_level""]== ""PhD"") & (data[""promotion""] == 1)].shape[0]/len(data[data[""education_level""]== ""PhD""])*100
+print(f""High School: {HS_promotion: .2f}%"")
+print(f""Bachelor's: {B_promotion: .2f}%"")
+print(f""Master's: {M_promotion: .2f}%"")
+print(f""PhD: {PHD_promotion: .2f}%"")
+from scipy import stats
+
+t_test, p_value = stats.ttest_ind(data[data[""promotion""] == 1][""age""], data[data[""promotion""] == 0][""age""])
+print(""T-test result for age: "", t_test)
+print(""p-value result: "", p_value)
+cont_table = pd.crosstab(data[""department""], data[""promotion""])
+chi, p_value2, _, _ = stats.chi2_contingency(cont_table)
+print(chi, p_value2)
+print(""Chi test for department: "", chi)
+print(""p-value: "", m p_value2)"
+"Project: Analyzing the Impact of Waking Up at 5am on Python Self-Learning Efficiency
+
+Dataset Requirements:
+
+You will need to create or procure a dataset that includes the following columns:
+
+Date (YYYY-MM-DD)
+Wake Up Time (in 24 hour format)
+Hours Spent Learning Python
+Topics Covered (topics that you've learned that day)
+Productivity Score (a self-evaluated score, on a scale of 1-10, on how productive you think you were)
+Day of the Week
+Hours of Sleep (the night before)
+Exercise:
+
+Data Cleaning and Processing:
+
+Clean the data by handling missing values and any incorrect entries.
+Process the Wake Up Time to a binary indicator - before 5am or not.
+Exploratory Data Analysis (EDA):
+
+Generate descriptive statistics of the data.
+Create a correlation matrix of the numerical variables.
+Visualize the data using suitable plots. For example, a histogram of Wake Up Time, a boxplot comparing Productivity Score on days waking up before and after 5am, etc.
+Analyze the Topics Covered to find the most common topics studied.
+Time-Series Analysis:
+
+Resample the data on a weekly basis and create a line plot of Hours Spent Learning Python and Productivity Score over time.
+Identify any trend or seasonality in Hours Spent Learning Python and Productivity Score.
+Predictive Modeling:
+
+Build a predictive model to forecast Productivity Score based on the other variables. You can consider models like Linear Regression, Decision Tree or even more advanced models like Random Forest or Gradient Boosting.
+Validate your model using cross-validation (You mentioned not to include a training and testing set, so use cross-validation instead).
+Evaluate the performance of your model using appropriate metrics.
+Insights and Conclusion:
+
+Summarize the insights you've gleaned from your EDA, time-series analysis, and predictive modeling.
+Draw a conclusion about the impact of waking up at 5am on Python self-learning efficiency based on your findings.
+
+Data Cleaning and Processing:
+
+Number of missing values in each column:
+Number of rows after cleaning:
+Exploratory Data Analysis (EDA):
+
+Descriptive statistics of the data:
+Mean wake up time:
+Mean hours spent learning Python:
+Mean productivity score:
+Mean hours of sleep:
+Correlation matrix:
+Visualizations:
+Histogram of Wake Up Time:
+Boxplot of Productivity Score:
+Most common topics studied:
+Time-Series Analysis:
+
+Resampled data (show first few rows):
+Trend in 'Hours Spent Learning Python':
+Trend in 'Productivity Score':
+Seasonality in 'Hours Spent Learning Python':
+Seasonality in 'Productivity Score':
+Predictive Modeling:
+
+Best model and its parameters:
+Cross-validation score:
+Performance metrics of the model:"
+"import pandas as pd
+import matplotlib.pyplot as pp
+from scipy import stats
+
+data = pd.read_csv(r""C:\Users\Lenovo\Desktop\Python\dog_breeds.csv"")
+print(data.isnull().sum())
+print(data.dtypes)
+print(data.groupby(""Breed Group"")[""Breed Group""].count())
+
+print(""Highest breed group average lifespan: "",data.loc[data[""Average Lifespan""].idxmax()][""Breed Group""])
+print(""Highest breed group average weight: "",data.loc[data[""Average Weight""].idxmax()][""Breed Group""])
+print(""Highest breed group average height: "",data.loc[data[""Average Height""].idxmax()][""Breed Group""])
+
+country_counts = data[""Origin Country""].value_counts()
+max_count = data[""Origin Country""].value_counts().max()
+print(""Countries with the most dog breeds average weight: "")
+for i in data[""Origin Country""]:
+    if max_count == country_counts[i]:
+        print(i, country_counts[i])
+
+breed_count = data[""Breed Group""].value_counts()
+pp.bar(breed_count.index, breed_count.values)
+pp.xlabel(""Breed Group"")
+pp.ylabel(""Count"")
+pp.show()
+pp.hist(data[""Average Lifespan""])
+pp.xlabel(""Average Lifespan"")
+pp.ylabel(""Frequency"")
+pp.show()
+pp.hist(data[""Average Height""])
+pp.xlabel(""Average Height"")
+pp.ylabel(""Frequency"")
+pp.show()
+pp.hist(data[""Average Weight""])
+pp.xlabel(""Average Weight"")
+pp.ylabel(""Frequency"")
+pp.show()
+pp.scatter(data[""Average Weight""], data[""Average Height""])
+pp.xlabel(""Average Weight"")
+pp.ylabel(""Average Height"")
+pp.show()
+herding_list = data[data[""Breed Group""] == ""Herding""][""Average Lifespan""]
+sporting_list = data[data[""Breed Group""] == ""Sporting""][""Average Lifespan""]
+t_test, p_value = stats.ttest_ind(herding_list, sporting_list)
+print(""T-test: "", t_test, ""p-value: "", p_value)
+correlation, p_value2 = stats.pearsonr(data[""Average Weight""], data[""Average Height""])
+print(""Correlation: "", correlation, ""p-value: "", p_value2)
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.preprocessing import  LabelEncoder
+from sklearn.metrics import accuracy_score
+
+le = LabelEncoder()
+data[""Origin Country""] = le.fit_transform(data[""Origin Country""])
+X = data[[""Average Lifespan"", ""Average Weight"", ""Average Height"", ""Origin Country""]]
+y = data[""Breed Group""]
+X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=0.2, random_state=42)
+model = RandomForestClassifier(n_estimators=100, random_state=42)
+model.fit(X_train,y_train)
+prediction = model.predict(X_test)
+accuracy = accuracy_score(y_test, prediction)
+print(accuracy)"
+"import pandas as pd
+import matplotlib.pyplot as pp
+import seaborn as sns
+data = pd.read_csv(r""C:\Users\Lenovo\Desktop\Python\financial_data.csv"")
+data.isnull().sum()
+def calculate_cagr(start_value, end_value, years):
+    return (end_value/start_value)**(1/years)-1
+start_year_list = data[data.groupby(""Company"")[""Year""].transform(min) == data[""Year""]]
+end_year_list = data[data.groupby(""Company"")[""Year""].transform(max) == data[""Year""]]
+data[""Year""] = pd.to_datetime(data[""Year""], format= ""%Y-%m-%d"")
+num_years = data[""Year""].max().year-data[""Year""].min().year
+num_years
+company_list = [""Company A"",""Company B"",""Company C"",""Company D"",""Company E""]
+cagr_revenue_list = {}
+cagr_netincome_list = {}
+cagr_cash_flow_list = {}
+for i in company_list:
+    cagr_revenue = calculate_cagr(data[start_year_list[""Company""] == i][""Revenue""].min(), data[end_year_list[""Company""] == i][""Revenue""].max(), num_years)
+    cagr_netincome = calculate_cagr(data[start_year_list[""Company""] == i][""Net Income""].min(), data[end_year_list[""Company""] == i][""Net Income""].max(), num_years)
+    cagr_cash_flow = calculate_cagr(data[start_year_list[""Company""] == i][""Operating Cash Flow""].min(), data[end_year_list[""Company""] == i][""Operating Cash Flow""].max(), num_years)
+
+    cagr_revenue_list[i] = cagr_revenue
+    cagr_netincome_list[i] = cagr_netincome
+    cagr_cash_flow_list[i] = cagr_cash_flow
+    print(i, ""CAGR for revenue: "", cagr_revenue)
+    print(i, ""CAGR for net income: "", cagr_netincome)
+    print(i, ""CAGR for cash flow: "", cagr_cash_flow)
+
+
+ranked_revenue = sorted(cagr_revenue_list.items(), key = lambda x:x[1], reverse= True)
+ranked_netincome = sorted(cagr_netincome_list.items(), key = lambda x:x[1], reverse= True)
+ranked_cashflow = sorted(cagr_cash_flow_list.items(), key = lambda x:x[1], reverse= True)
+            
+            
+print(""Company Ranking based on CAGR Revenue: "")
+for i in range(len(company_list)):
+    print(""Rank:"", i + 1, ranked_revenue[i][0])
+
+print(""Company Ranking based on CAGR Net Income: "")
+for i in range(len(company_list)):
+    print(""Rank:"", i + 1, ranked_netincome[i][0])
+
+print(""Company Ranking based on CAGR Cash Flow: "")
+for i in range(len(company_list)):
+    print(""Rank:"", i + 1, ranked_cashflow[i][0])
+debt_equity_corr = data[[""Debt-to-Equity Ratio"",""Revenue"", ""Net Income"", ""Operating Cash Flow""]].corr()
+return_on_equity_corr = data[[""Return on Equity"",""Revenue"", ""Net Income"", ""Operating Cash Flow""]].corr()
+print(debt_equity_corr)
+print(return_on_equity_corr)
+data
+sns.barplot(data=data, y= data[""Revenue""], x = data[""Company""])
+pp.show()
+sns.barplot(data=data, y= data[""Net Income""], x = data[""Company""])
+pp.show()
+sns.barplot(data=data, y= data[""Operating Cash Flow""], x = data[""Company""])
+pp.show()
+sns.barplot(data=data[data[""Company""] == ""Company A""], y= data[""Revenue""], x = data[""Year""])
+pp.show()
+sns.barplot(data=data[data[""Company""] == ""Company A""], y= data[""Net Income""], x = data[""Year""])
+pp.show()
+sns.barplot(data=data[data[""Company""] == ""Company A""], y= data[""Operating Cash Flow""], x = data[""Year""])
+pp.show()
+sns.barplot(data=data[data[""Company""] == ""Company B""], y= data[""Revenue""], x = data[""Year""])
+pp.show()
+sns.barplot(data=data[data[""Company""] == ""Company B""], y= data[""Net Income""], x = data[""Year""])
+pp.show()
+sns.barplot(data=data[data[""Company""] == ""Company B""], y= data[""Operating Cash Flow""], x = data[""Year""])
+pp.show()
+sns.barplot(data=data[data[""Company""] == ""Company C""], y= data[""Revenue""], x = data[""Year""])
+pp.show()
+sns.barplot(data=data[data[""Company""] == ""Company C""], y= data[""Net Income""], x = data[""Year""])
+pp.show()
+sns.barplot(data=data[data[""Company""] == ""Company C""], y= data[""Operating Cash Flow""], x = data[""Year""])
+pp.show()
+sns.barplot(data=data[data[""Company""] == ""Company D""], y= data[""Revenue""], x = data[""Year""])
+pp.show()
+sns.barplot(data=data[data[""Company""] == ""Company D""], y= data[""Net Income""], x = data[""Year""])
+pp.show()
+sns.barplot(data=data[data[""Company""] == ""Company D""], y= data[""Operating Cash Flow""], x = data[""Year""])
+pp.show()
+sns.barplot(data=data[data[""Company""] == ""Company E""], y= data[""Revenue""], x = data[""Year""])
+pp.show()
+sns.barplot(data=data[data[""Company""] == ""Company E""], y= data[""Net Income""], x = data[""Year""])
+pp.show()
+sns.barplot(data=data[data[""Company""] == ""Company E""], y= data[""Operating Cash Flow""], x = data[""Year""])
+pp.show()
+sns.heatmap(debt_equity_corr)
+pp.show()
+sns.heatmap(return_on_equity_corr)
+pp.show()"
+"import pandas as pd
+import matplotlib.pyplot as pp 
+import seaborn as sns
+data = pd.read_csv(r""C:\Users\Lenovo\Desktop\Python\mock_social_media_data.csv"")
+print(""Total number of records:"", len(data))
+data[""date""] = pd.to_datetime(data[""timestamp""])
+data[""date""] = data[""date""].dt.strftime(""%Y-%m-%d"")
+print(""Date range:"", data[""date""].min(), ""to"", data[""date""].max())
+
+print(""Platforms included:"", ', '.join(data[""platform""].unique()))
+sentiment_perc_list = data[""sentiment""].value_counts()/len(data)
+print(f""Sentiment distribution: Positive:{sentiment_perc_list[0]: .2%}, Negative:{sentiment_perc_list[1]: .2%}, Neutral:{sentiment_perc_list[2]: .2%}"" )
+print(data.isnull().sum())
+data[""text""] = data[""text""].str.lower()
+data[""post length""] = data[""text""].str.len()
+insta_positive_perc = data[(data[""platform""] == ""Instagram"") & (data[""sentiment""] == ""Positive"")][""sentiment""].value_counts()[0]/len(data[data[""platform""] == ""Instagram""])
+reddit_positive_perc = data[(data[""platform""] == ""Reddit"") & (data[""sentiment""] == ""Positive"")][""sentiment""].value_counts()[0]/len(data[data[""platform""] == ""Reddit""])
+twitter_positive_perc = data[(data[""platform""] == ""Twitter"") & (data[""sentiment""] == ""Positive"")][""sentiment""].value_counts()[0]/len(data[data[""platform""] == ""Twitter""])
+print(f""Posts with 'Positive' sentiment towards humility: {twitter_positive_perc : .2%} on Twitter, {reddit_positive_perc : .2%} on Reddit, {insta_positive_perc : .2%} on Instagram."")
+insta_negative_perc = data[(data[""platform""] == ""Instagram"") & (data[""sentiment""] == ""Negative"")][""sentiment""].value_counts()[0]/len(data[data[""platform""] == ""Instagram""])
+reddit_negative_perc = data[(data[""platform""] == ""Reddit"") & (data[""sentiment""] == ""Negative"")][""sentiment""].value_counts()[0]/len(data[data[""platform""] == ""Reddit""])
+twitter_negative_perc = data[(data[""platform""] == ""Twitter"") & (data[""sentiment""] == ""Negative"")][""sentiment""].value_counts()[0]/len(data[data[""platform""] == ""Twitter""])
+print(f""Posts with 'Negative' sentiment towards humility: {twitter_negative_perc : .2%} on Twitter, {reddit_negative_perc : .2%} on Reddit, {insta_negative_perc : .2%} on Instagram."")
+insta_neutral_perc = data[(data[""platform""] == ""Instagram"") & (data[""sentiment""] == ""Neutral"")][""sentiment""].value_counts()[0]/len(data[data[""platform""] == ""Instagram""])
+reddit_neutral_perc = data[(data[""platform""] == ""Reddit"") & (data[""sentiment""] == ""Neutral"")][""sentiment""].value_counts()[0]/len(data[data[""platform""] == ""Reddit""])
+twitter_neutral_perc = data[(data[""platform""] == ""Twitter"") & (data[""sentiment""] == ""Neutral"")][""sentiment""].value_counts()[0]/len(data[data[""platform""] == ""Twitter""])
+print(f""Posts with 'Neutral' sentiment towards humility: {twitter_neutral_perc : .2%} on Twitter, {reddit_neutral_perc : .2%} on Reddit, {insta_neutral_perc : .2%} on Instagram."")
+instagram_ratings = {""Positive"": insta_positive_perc, ""Negative"": insta_negative_perc, ""Neutral"": insta_neutral_perc}
+reddit_ratings = {""Positive"": reddit_positive_perc, ""Negative"": reddit_negative_perc, ""Neutral"": reddit_neutral_perc}
+twitter_ratings = {""Positive"": twitter_positive_perc, ""Negative"": twitter_negative_perc, ""Neutral"": twitter_neutral_perc}
+
+ratings_df = pd.DataFrame(
+    [{""Platform"":""Instagram"", ""Sentiment"": k, ""Rating"": v} for k,v in instagram_ratings.items()]+
+    [{""Platform"":""Reddit"", ""Sentiment"": k, ""Rating"": v} for k,v in reddit_ratings.items()]+
+    [{""Platform"":""Twitter"", ""Sentiment"": k, ""Rating"": v} for k,v in twitter_ratings.items()]
+)
+
+
+sns.barplot(data=ratings_df, x=""Platform"", y=""Rating"", hue=""Sentiment"")
+
+from gensim import corpora, models
+import nltk
+
+from nltk.corpus import stopwords
+from nltk.stem.wordnet import WordNetLemmatizer
+import string
+
+nltk.download(""stopwords"")
+nltk.download(""wordnet"")
+stop = set(stopwords.words('english'))
+exclude = set(string.punctuation)
+lemma = WordNetLemmatizer()
+
+def clean(doc):
+    stop_free = "" "".join([i for i in doc.lower().split() if i not in stop])
+    punc_free = """".join(ch for ch in stop_free if ch not in exclude)
+    normalized = "" "".join(lemma.lemmatize(word) for word in punc_free.split())
+    return normalized
+cleaned_doc = [clean(doc).split() for doc in data[""text""]]
+dictionary = corpora.Dictionary(cleaned_doc)
+doc_cleaned_matrix = [dictionary.doc2bow(doc) for doc in cleaned_doc]
+'''Lda = models.LdaModel
+ldamodel = Lda(doc_cleaned_matrix, num_topics = 5, id2word = dictionary, passes = 50)
+print(Lda.print_topics())'''"
+"import pandas as pd
+import matplotlib.pyplot as pp
+import seaborn as sns
+import numpy as np
+from collections import Counter
+from scipy import stats
+try:
+    data = pd.read_csv(r""C:\Users\Lenovo\Desktop\Python\tiktok_workout_videos.csv"")
+except:
+    print(""Error reading the file"")
+data.isnull().sum()
+data[""hashtags""] = data[""hashtags""].apply(lambda x: x.split(' '))
+
+data[""views""] = np.where(data[""views""]==0, np.nan, data[""views""])
+data[""engagement_rate""] = (data[""likes""] + data[""shares""] + data[""comments""])/data[""views""]
+data[""views""] = data[""views""].fillna(0)
+
+avg_video_length = data[""length""].mean()
+print(f""Average video length: {avg_video_length: .2f}"")
+most_common_style = Counter(data[""style""]).most_common(1)
+print(""Most common style:"",most_common_style[0][0])
+top_5_creators_by_views = data.groupby(""creator"")[""views""].sum().sort_values(ascending=False).head(5)
+print(""Top 5 creators by views:\n"",top_5_creators_by_views)
+sns.histplot(data=data[""length""])
+pp.title(""Distribution of video lengths"")
+pp.show()
+sns.lmplot(data=data, x=""length"", y=""engagement_rate"")
+pp.title(""Relationship between Video Length and Engagement Rate"")
+pp.show()
+engagement_by_style = data.groupby(""style"")[""engagement_rate""].mean().reset_index()
+sns.barplot(data=engagement_by_style, x=""style"", y=""engagement_rate"")
+pp.title(""Average Engagement Rate"")
+pp.show()
+sns.lineplot(data=data, x=""date_posted"", y=""views"")
+pp.title(""Trend of Views over Time"")
+pp.show()
+hiit = data[data[""style""] == ""HIIT""][""engagement_rate""]
+yoga = data[data[""style""] == ""Yoga""][""engagement_rate""]
+t_test, p_value = stats.ttest_ind(hiit,yoga)
+print(f""P-value: {p_value}"")
+all_hashtags = []
+for i in data[""hashtags""]:
+    all_hashtags.extend(i)
+
+top_5_most_common_hashtags = Counter(all_hashtags).most_common(5)
+top_5_most_common_hashtags = pd.DataFrame(top_5_most_common_hashtags, columns=[""Hashtags"", ""Frequency""])
+sns.barplot(data=top_5_most_common_hashtags, x=""Hashtags"", y=""Frequency"")
+pp.title(""Most Common Hashtags"")
+pp.show()"
+"import pandas as pd
+import matplotlib.pyplot as pp 
+import seaborn as sns
+from datetime import datetime
+import holidays
+sales_data = pd.read_csv(r""C:\Users\Lenovo\Desktop\Python\Lvl 10 Tableau Expert sales.csv"")
+product_data = pd.read_csv(r""C:\Users\Lenovo\Desktop\Python\Lvl 10 Tableau Expert sales.csv"")
+customer_data = pd.read_csv(r""C:\Users\Lenovo\Desktop\Python\Lvl 10 Tableau Expert customers.csv"")
+
+sales_data[""SaleDate""] = pd.to_datetime(sales_data[""SaleDate""])
+sales_data[""Year""] = sales_data[""SaleDate""].dt.year
+sales_data[""Month""] = sales_data[""SaleDate""].dt.month
+for i in range(len(sales_data[""Month""])):
+    if sales_data[""Month""][i] == 1:
+        sales_data[""Month""][i] = ""Jan""
+    elif sales_data[""Month""][i] == 2:
+        sales_data[""Month""][i] = ""Feb""
+    elif sales_data[""Month""][i] == 3:
+        sales_data[""Month""][i] = ""Mar""
+    elif sales_data[""Month""][i] == 4:
+        sales_data[""Month""][i] = ""Apr""
+    elif sales_data[""Month""][i] == 5:
+        sales_data[""Month""][i] = ""May""
+    elif sales_data[""Month""][i] == 6:
+        sales_data[""Month""][i] = ""Jun""
+    elif sales_data[""Month""][i] == 7:
+        sales_data[""Month""][i] = ""Jul""
+    elif sales_data[""Month""][i] == 8:
+        sales_data[""Month""][i] = ""Aug""
+    elif sales_data[""Month""][i] == 9:
+        sales_data[""Month""][i] = ""Sep""
+    elif sales_data[""Month""][i] == 10:
+        sales_data[""Month""][i] = ""Oct""
+    elif sales_data[""Month""][i] == 11:
+        sales_data[""Month""][i] = ""Nov""
+    elif sales_data[""Month""][i] == 12:
+        sales_data[""Month""][i] = ""Dec""
+sales_customers = sales_data.merge(customer_data, on=sales_data[""CustomerID""], how=""inner"")
+sales_trend = sales_customers[[""Year"",""Month"",""City"", ""TotalPrice""]]
+grouped_sales_trend = sales_trend.groupby([""Year"",""Month"",""City""])[""TotalPrice""].sum().reset_index()
+grouped_sales_trend = grouped_sales_trend.rename(columns={""TotalPrice"" : ""TotalSales""})
+customer_behavior = sales_customers[[""CustomerID_x"",""Age"",""Gender"", ""City"", ""Quantity"", ""TotalPrice""]]
+customer_behavior = customer_behavior.rename(columns={""CustomerID_x"" : ""CustomerID""})
+grouped_customer_behavior = customer_behavior.groupby([""CustomerID"",""Age"",""Gender"", ""City""]).agg({""Quantity"":""sum"", ""TotalPrice"":""mean""}).reset_index()
+grouped_customer_behavior = grouped_customer_behavior.rename(columns={""Quantity"":""TotalPurchases"", ""TotalPrice"" : ""AveragePurchaseValueSales""})
+market_opportunity = sales_customers.groupby([""City""]).agg({""CustomerID_x"":""sum"", ""TotalPrice"": ""sum""}).reset_index()
+market_opportunity = market_opportunity.rename(columns={""CustomerID_x"":""CustomerCount"", ""TotalPrice"" : ""TotalSales""})
+us_holidays = holidays.UnitedStates()
+
+holiday_weekend = []
+
+dates = pd.date_range(start=""2019-01-01"", end=""2021-09-26"")
+for date in dates:
+    if date in us_holidays and date.day_of_week > 5:
+        row = {""Date"" : date}
+        row[""Daytype""] = ""Holiday Weekend""
+    elif date in us_holidays:
+        row = {""Date"" : date}
+        row[""Daytype""] = ""Holiday""
+    elif date.day_of_week > 5:
+        row = {""Date"" : date}
+        row[""Daytype""] = ""Weekend""
+    holiday_weekend.append(row)
+holiday_weekend =pd.DataFrame(holiday_weekend)
+holiday_weekend = holiday_weekend.drop_duplicates()
+holiday_weekend_joined = holiday_weekend.merge(sales_data, left_on=""Date"", right_on=""SaleDate"", how=""inner"")
+holiday_weekend_joined = holiday_weekend_joined[[""Date"",""Daytype"", ""TotalPrice""]]
+holiday_weekend_joined = holiday_weekend_joined.rename(columns={""TotalPrice"":""TotalSales""})
+holiday_weekend_joined
+grouped_sales_trend.to_csv(""sales_trends.csv"", index=False)
+grouped_customer_behavior.to_csv(""customer_behavior.csv"", index=False)
+holiday_weekend_joined.to_csv(""holiday_and_weekend_sales.csv"", index=False)
+market_opportunity.to_csv(""market_opportunity.csv"", index=False)"
+from textblob import TextBlob
+"#import needed libraries
+import pandas as pd
+import matplotlib.pyplot as mp
+from sklearn.preprocessing import StandardScaler
+import seaborn as sns
+import numpy as np
+#function to remove outliers
+def remove_outliers(data, col):
+    Q1 = data[col].quantile(0.25)
+    Q3 = data[col].quantile(0.75)
+    IQR = Q3-Q1
+    data_out = data[~((data[col] < (Q1-1.5*IQR)) & (data[col] > (Q3+1.5*IQR)))]
+    return data_out
+while True:
+    try:
+        #Load raw files
+        global_tree_planting = pd.read_csv(r""C:\Users\Lenovo\Desktop\Python\Global_Tree_Planting.csv"")
+        environmental_data = pd.read_csv(r""C:\Users\Lenovo\Desktop\Python\Environmental_Data.csv"")
+        socio_economic = pd.read_csv(r""C:\Users\Lenovo\Desktop\Python\Socio_Economic_Data.csv"")
+        break
+    except:
+        print(""Can't import dataset."")
+# Merge datasets
+global_environment = global_tree_planting.merge(environmental_data, on=[""Latitude"",""Longitude""], how=""inner"")
+all_data = global_environment.merge(socio_economic, on=[""Latitude"",""Longitude""], how=""inner"")
+#Print null values
+print(""Null values:\n"", all_data.isnull().sum())
+
+
+#Fill Nan in All_Data with mean
+for col in all_data.columns:
+    if all_data[col].dtype in [""float64"", ""int64""]:
+        all_data[col] = all_data[col].fillna(all_data[col].mean())
+    else:
+        all_data[col] = all_data[col].fillna(all_data[col].mode())
+
+
+print(""No of Duplicates:"", all_data.duplicated().sum())
+#Drop duplicate
+all_data = all_data.drop_duplicates()
+
+#print summary of all_data
+print(all_data.describe())
+
+#histogram of all_data columns
+all_data.hist(bins=50, figsize=(20,15))
+
+#remove outliers for all data
+to_clean = all_data[[""Latitude"", ""Longitude"",""Scale (hectares)"",""Climate (°C)"",""Soil Composition (Clay %)"",""Soil Composition (Silt %)"",""Soil Composition (Sand %)"",""Vegetation (%)"",""Population"",""GDP per Capita (USD)""]]
+for col in to_clean:
+    all_data = remove_outliers(all_data, col)
+
+#Num columns & get correlation
+num_columns = all_data[[""Latitude"", ""Longitude"",""Scale (hectares)"",""Climate (°C)"",""Soil Composition (Clay %)"",""Soil Composition (Silt %)"",""Soil Composition (Sand %)"",""Vegetation (%)"",""Population"",""GDP per Capita (USD)""]]
+corr_matrix = num_columns.corr()
+print(corr_matrix)
+#Create histogram & show it
+sns.histplot(data= all_data[""Scale (hectares)""])
+mp.show()
+#Create heatmap & show it
+sns.heatmap(corr_matrix, annot=True, fmt="".2f"", square=True,cmap=""coolwarm"")
+mp.show()
+#Create scatterplot & show it
+sns.scatterplot(data=all_data, x=""Soil Composition (Clay %)"", y=""Soil Composition (Sand %)"")
+mp.show()
+#Normalize numerical columns
+scalar = StandardScaler()
+
+for col in num_columns.columns:
+    num_columns[col] = scalar.fit_transform(num_columns[[col]])
+
+print(""Normalized columns:"", num_columns)
+#Group Type of Activity by Hectares
+hectares_global_tree_planting = global_tree_planting.groupby(""Type of Activity"").sum()[""Scale (hectares)""]
+hectares_global_tree_planting = hectares_global_tree_planting.reset_index()
+
+#Show Barplot of each Type of Activity by Hectares
+sns.barplot(data=hectares_global_tree_planting, x=""Type of Activity"", y=""Scale (hectares)"")
+mp.show()
+#Import Scipy
+from scipy import stats
+
+#Choose columns for t-test & p-value
+clay = all_data[""Soil Composition (Clay %)""]
+sand = all_data[""Soil Composition (Sand %)""]
+
+#get t-test & p-value
+t_test, p_value  = stats.ttest_ind(clay,sand)
+
+#print t-test & p-value
+print(""t-test:"", t_test)
+print(""p-value:"", p_value)"
+"import pandas as pd
+import seaborn as sns
+import numpy as np
+from scipy import stats
+from sklearn.linear_model import LinearRegression
+import matplotlib.pyplot as mp
+
+from statsmodels.tsa.seasonal import seasonal_decompose
+from statsmodels.tsa.stattools import adfuller
+from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
+from statsmodels.tsa.statespace.sarimax import SARIMAX
+store_data = pd.read_csv(r""C:\Users\Lenovo\Desktop\Python\starbucks_store_data.csv"")
+market_data = pd.read_csv(r""C:\Users\Lenovo\Desktop\Python\coffee_market_and_economic_data.csv"")
+#Convert to datetime & Create Year
+store_data[""Store Opening Date""] = pd.to_datetime(store_data[""Store Opening Date""])
+store_data[""Year""] = store_data[""Store Opening Date""].dt.year
+#Join on Country & Year
+all_data = pd.merge(store_data, market_data, on=[""Country"",""Year""])
+all_data
+#Check for null values
+print(""Null values:"")
+print(all_data.isnull().sum())
+
+#Outlier detection
+z_score = np.abs(stats.zscore(all_data[[""Sales"", ""Profits""]]))
+all_data = all_data[(z_score < 3).all(axis=1)]
+all_data
+all_data.groupby([""Country"",""Store Type""])[""Sales""].agg([""sum"",""mean""])
+all_data.groupby([""Country"",""Store Type""])[""Profits""].agg([""sum"",""mean""])
+#Sort
+all_data.sort_values([""Store Name"", ""Year""], inplace=True)
+
+#Sales & Profit Growth Rate
+all_data[""Sales Growth""] = all_data.groupby(""Store Name"")[""Sales""].pct_change()
+all_data[""Profit Growth""] = all_data.groupby(""Store Name"")[""Profits""].pct_change()
+
+all_data.replace([np.inf, -np.inf], np.nan, inplace=True)
+
+all_data[""Sales Growth""].fillna(0, inplace=True)
+all_data[""Profit Growth""].fillna(0, inplace=True)
+
+
+store_type_dummies = pd.get_dummies(all_data[""Store Type""], prefix=""Store Type"")
+
+#Join dummy variable to main dataframe
+all_data = pd.concat([all_data,store_type_dummies], axis=1)
+sns.lineplot(all_data, x=""Year"", y=""Sales"")
+mp.show()
+sns.lineplot(all_data, x=""Year"", y=""Profits"")
+mp.show()
+sns.histplot(all_data[""Customer Rating""])
+mp.show()
+
+num_columns = all_data[[""Sales"",""Profits"", ""Number of Employees"", ""Customer Rating"", ""Coffee Consumption per Capita (kg)"", ""GDP per Capita (USD)""]]
+corr_matrix = num_columns.corr()
+print(""Correlation Matrix:"", corr_matrix)
+sns.heatmap(corr_matrix)
+mp.show()
+all_data[""Sales""].plot()
+mp.show()
+decomposition = seasonal_decompose(all_data[""Sales""], period=12)
+decomposition.plot()
+mp.show()
+
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LinearRegression
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import mean_squared_error
+from keras.models import Sequential
+from keras.layers import Dense
+from keras.wrappers.scikit_learn import KerasRegressor"
+"def max_points(exercises, max_weight):
+    total_weight = 0
+    total_points = 0
+    max_points = 0
+    best_combo = None
+    all_binary_combo = binary_list(len(exercises))
+    for binary_combo in all_binary_combo:
+        total_weight = sum(exercises[i][0] for i in range(len(binary_combo)) if binary_combo[i] == 1)
+        if total_weight <= max_weight:
+            total_points = sum(exercises[i][1] for i in range(len(binary_combo)) if binary_combo[i] == 1)
+            if total_points > max_points:
+                max_points = total_points
+                best_combo = binary_combo
+    return max_points, best_combo
+
+                
+
+
+def binary_list(list_size):
+    if list_size == 0:
+        return [[]]
+    else:
+        smaller_lists = binary_list(list_size-1)
+        return [[0] + smaller_list for smaller_list in smaller_lists] + [[1] + smaller_list for smaller_list in smaller_lists]
+
+exercises = [(10, 60), (20, 100), (30, 120)]
+max_weight = 50
+print(max_points(exercises, max_weight))
+"
+"import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as mp
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import classification_report
+from lifelines import KaplanMeierFitter
+import statsmodels.api as sm
+
+# Load the data
+data = pd.read_csv(r""C:\Users\Lenovo\Desktop\Python\Lvl 10 Job Promotions.csv"")
+
+# Check for null values
+print(""Null values:\n"",data.isnull().sum())
+
+# Plot Performance Scores of Not-Promoted over Time
+sns.lineplot(data=data[data[""promoted""] == 0], x=""year"", y=""performance_score"", label=""Promoted"", color=""green"")
+mp.title(""Performance Scores of Not-Promoted over Time"")
+
+# Plot Performance Scores of Promoted over Time
+sns.lineplot(data=data[data[""promoted""] == 1], x=""year"", y=""performance_score"", label=""Not-Promoted"", color=""red"")
+mp.title(""Performance Scores over Time"")
+mp.legend(title=""Promoted Status"")
+
+# Plot Promotions over Time
+sns.lineplot(data=data, x=""year"", y=""promoted"")
+mp.title(""Promotions over Time"")
+
+# Plot relationship between promotions and attrition
+sns.barplot(data=data, y=""left_company"", x=""promoted"")
+mp.title(""Promotions & Attrition"")
+
+# Compute correlation between promotions and attrition
+promotions_attrition = data[[""promoted"", ""left_company""]]
+corr_matrix = promotions_attrition.corr()
+promotions_attrition_corr = corr_matrix.loc[""promoted"", ""left_company""]
+print(""Correlation between promotions & attrition:"", promotions_attrition_corr)
+
+# Group data by department and year and compute mean of promoted
+dept_year_promotion = data[[""department"", ""year"", ""promoted""]]
+dept_year_promotion = dept_year_promotion.groupby(""department"").agg({""year"":""mean"", ""promoted"":""mean""})
+print(dept_year_promotion)
+
+# Group data by role and year and compute mean of promoted
+dept_year_promotion = data[[""role"", ""year"", ""promoted""]]
+dept_year_promotion = dept_year_promotion.groupby(""role"").agg({""year"":""mean"", ""promoted"":""mean""})
+print(dept_year_promotion)
+
+# Compute count of promotions and career path for each employee
+unique_employees = data.sort_values([""employee_id"", ""year""]).groupby(""employee_id"").agg({""role"":list,""promoted"":list}).reset_index()
+unique_employees[""Promotion Count""] = unique_employees[""promoted""].apply(sum)
+unique_employees[""Career Path""] = unique_employees[""role""].apply(lambda role_list: "" -> "".join(role_list))
+
+# Compute average promotion count by career path
+avg_promotion_by_path = unique_employees.groupby(""Career Path"")[""Promotion Count""].mean().sort_values(ascending=False)
+
+# Compute duration and event for survival analysis
+data.sort_values([""employee_id"", ""year""], inplace=True)
+survival_analysis = data.groupby(""employee_id"").apply(compute_duration_event).reset_index()
+
+# Encode categorical variables
+le = LabelEncoder()
+for column in [""gender"", ""department"", ""education_level"", ""role""]:
+    data[column] = le.fit_transform(data[column])
+
+# Create target variable for next year's promotion
+data[""promoted next year""] = data.groupby(""employee_id"")[""promoted""].shift(-1)
+data = data.dropna(subset=[""promoted next year""])
+
+# Fit Kaplan-Meier survival function
+kmf = KaplanMeierFitter()
+kmf.fit(durations = survival_analysis[""duration""], event_observed = survival_analysis[""event""])
+kmf.plot_survival_function()
+
+# Prepare data for predictive modeling
+X = data[[""age"",        ""gender"",        ""department"",        ""education_level"",        ""years_of_experience"",        ""performance_score"",        ""role"",        ""left_company"",        ""promoted"", ""lagged_perf_score"", ""cumulative_promotions""]]
+y = data[""promoted next year""]
+
+# Split data into train and test sets
+X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=0.1, random_state=42)
+
+# Fit random forest classifier
+clf = RandomForestClassifier(n_estimators=100, random_state=42)
+clf.fit(X_train,y_train)
+
+# Predict on test set and print classification report
+y_pred = clf.predict(X_test)
+print(classification_report(y_test, y_pred))
+
+# Conduct causal inference with OLS regression
+data[""lagged_promotions""] =data.groupby(""employee_id"")[""promoted""].shift(1)
+data_subset = data[data[""year""] != data.groupby(""employee_id"")[""year""].transform(""min"")]
+X = data_subset[[""lagged_promotions""]]
+X = sm.add_constant(X)
+y = data_subset[[""performance_score""]]
+model = sm.OLS(y,X)
+results = model.fit()
+print(results.summary())
+
+# Plot effect of promotions on performance scores
+sns.scatterplot(x=""lagged_promotions"", y = ""performance_score"", data=data_subset)
+sns.regplot(x=""lagged_promotions"", y = ""performance_score"", data=data_subset, scatter=False,ci=95, color=""red"")
+mp.title(""Effect of Promotions on Performance Scores"")
+mp.xlabel(""Lagged Promotions"")
+mp.ylabel(""Performance Score"")
+mp.show()
+"
+
+"#Python equivalent
+def stutter(text):
+        if len(text) >= 2:
+                return text[0] + text[1] + text
+        else:
+                return ""Text is too short to stutter.""
+
+if __name__==""__main__"":
+        text = input(""Enter a piece of text: "")
+        print(stutter(text))"
+"#Python equivalent
+import random
+if __name__==""__main__"":
+        #assign random meetings for the month
+        meetings = [0] * 30
+        for i in range(30):
+                meetings[i] = random.randint(0,5)
+
+        #display meetings for the month
+        for i in range(30):
+                print(""Day "", (i + 1), "": "", meetings[i], "" meetings"")
+
+        #ask user startdate
+        startdate = int(input(""Enter the start day of your 1-week vacation (1-24): ""))
+        
+        #data validation
+        while(startdate < 1 or 24 < startdate):
+                startdate = int(input(""Invalid input. Enter start date from 1-24: ""))
+
+        #sum total meetings missed
+        tot_meetings = 0
+        for i in range(startdate, startdate + 6):
+                tot_meetings += meetings[i]
+
+        print(""You would miss a total of "", tot_meetings, "" meetings during your vacation."")"
+"if __name__ == ""__main__"":
+    tot_free_hours = 0
+    print(""Enter the number of hours you're busy each day during the holiday week:\n"")
+    
+    for i in range(7):
+        tot_free_hours += 24 - int(input(f""Day {i+1}: ""))
+        
+    print(f""Total free hours during the holiday week: {tot_free_hours} hours."")
+"
+"#Python Equivalent
+
+if __name__==""__main__"":
+        #print menu
+        print(""Holiday Gift List Manager"")
+        print(""1. Add a new gift"")
+        print(""2. View the entire gift list"")
+        print(""3. Search by recipient's name"")
+        print(""4. Delete a gift"")
+        print(""5. Exit"")
+
+        #initialize variables
+        choice = 0
+        giftlist = []
+
+        #loop until user chooses 5
+        while (choice != 5):
+                #prompt user choice
+                choice = int(input(""Choice: ""))
+                
+                #check if choice equals to 1
+                if choice == 1:
+                        #add to new gift tuple the details
+                        name = input(""Enter recipient's name: "")
+                        desc = input(""Enter gift description: "")
+                        cost = float(input(""Enter estimated cost: ""))
+
+                        #set user inputs into a tuple
+                        newgift = (name, desc, cost)
+
+                        #add new gift to gift list
+                        giftlist.append(newgift)
+
+                        #notify user the gift is added
+                        print(""Gift added! Total gifts in the list: "", len(giftlist))
+
+                #check if choice equals to 2
+                elif choice == 2:
+                        #loop through all gifts in gift list
+                        for gift in giftlist:
+                                #print details of each gift
+                                print(f""Recipient: {gift[0]}, Gift: {gift[1]}, Cost: ${gift[2]}"")
+
+                #check if choice equals to 3
+                elif choice == 3:
+                        #enter to search recipient's name
+                        name = input(""Enter recipient's name: "")
+
+                        #loop through all gifts in gift list
+                        for gift in giftlist:
+                                
+                                #if search name has been found, display gift details
+                                if name == gift[0]:
+                                        #print details of each gift
+                                        print(f""Recipient: {gift[0]}, Gift: {gift[1]}, Cost: ${gift[2]}"")
+                                        break
+
+                #check if choice equals to 4
+                elif choice == 4:
+                        #enter to search recipient's name
+                        name = input(""Enter recipient's name to delete: "")
+
+                        #set found variable
+                        found = 0
+
+                        #loop through all gifts in gift list
+                        for gift in giftlist:
+                                #if search name has been found, display gift details
+                                if name == gift[0]:
+                                        #remove current gift
+                                        giftlist.remove(gift)
+
+                                        #notify user gift was removed and total items in gift list
+                                        print(""Gift deleted! Total gifts in the list: "", len(giftlist))
+
+                                        #set found variable to 1 to avoid notifying the user about not finding the recipient
+                                        found = 1
+
+                                        #break loop
+                                        break
+                        
+                        #notify user that recipient doesnt exist in the gift list
+                        if found == 0:
+                                print(""Recipient doesn't exist"")
+
+                #check if choice equals to 5
+                elif choice == 5:
+                        #thank and exit
+                        print(""Thank you for using the Holiday Gift List Manager!"")"
+"#Python Equivalent
+import pandas as pd
+
+#import dataset & store it in gift
+gift = pd.read_csv(""C:\\Users\\Lenovo\\Desktop\\Learning\\R\\Data Sets\\ChristmasGifts.csv"")
+
+#display first 5 rows
+print(gift.head(5))
+
+#display number of gifts
+num_gifts = len(gift)
+print(""Number of gifts: "", num_gifts)
+
+#total cost of all purchased gifts
+total_cost = sum(gift[gift['Purchased'] == 1]['Cost'])
+print(""The total cost of all purchased gifts: $"", total_cost)
+
+#most common gift type
+most_common_gift_type = gift['GiftType'].value_counts().idxmax()
+print(""The most common type of gift is "", most_common_gift_type)"
+"#Python Equivalent
+#import libraries
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+def categorize_mpg(mpg):
+        if mpg > 25:
+                return ""High"" 
+        elif mpg >= 15:
+                return ""Medium""
+        else:
+                return ""Low""
+
+
+if __name__ == ""__main__"":
+        #import data
+        data = pd.read_csv(""C:\Users\Lenovo\Desktop\Learning\R\Data Sets\random_mtcars_dataset.csv"")
+
+        #display first 5 rows
+        print(data.head(5))
+
+        #display summary
+        print(data.describe())
+
+        #create mpg_level
+        data[""mpg_level""] = data[""mpg""].apply(categorize_mpg)
+
+        #barplot
+        data[""mpg_level""].value_counts().plot(kind=""bar"")
+
+        plt.xlabel(""MPG Level"")
+        plt.ylabel(""Number of Cars"")
+        plt.title(""Cars by MPG Level"")
+
+        #bonus MPG vs HP scatterplot
+        sns.scatterplot(x=""mpg_level"", y=""hp"", data=data)
+        plt.xlabel(""MPG Level"")
+        plt.ylabel(""Horsepower"")
+        plt.title(""Horsepower by MPG Level"")
+
+        #bonus MPG vs Weight scatterplot
+        sns.scatterplot(x=""mpg_level"", y=""wt"", data=data)
+        plt.xlabel(""MPG Level"")
+        plt.ylabel(""Weight"")
+        plt.title(""Weight by MPG Level"")
+
+        plt.show()"
+"#Python Equivalent
+from datetime import datetime
+
+print(""Welcome to the Birthday Celebration Planner!"")
+date_today = input(""Please enter today's date (DD/MM/YYYY): "")
+date_today = datetime.strptime(date_today, ""%d/%m/%Y"")
+
+mom_bday = input(""Please enter the date of your mom's 60th birthday (DD/MM/YYYY): "")
+mom_bday = datetime.strptime(mom_bday, ""%d/%m/%Y"")
+
+days_left = (mom_bday - date_today).days
+
+print(f""Countdown: {days_left} days left until your mom's 60th birthday!"")
+
+print(""Please enter the tasks for the birthday preparation."")
+print(""You can enter up to 5 tasks."")
+
+task_list = []
+
+
+for i in range(1,6):
+        task = input(f""Task {i}: "")
+        task_date = input(f""Due date for Task {i} (DD/MM/YYYY): "")
+        task_tuple = (task, task_date)
+        task_list.append(task_tuple)
+
+print(""Tasks Summary:"")
+for i,task in enumerate(task_list,1):
+        print(f""{i}. {task[0]} - Due: {task[1]}"")
+
+print(""All tasks are scheduled appropriately."")
+print(""Keep up with the preparations for a wonderful celebration!"")"
+"#Python Equivalent
+if __name__ == ""__main__"":
+        skill_desc = []
+
+        job_title = input(""Welcome to the Career Path Analyzer!\nPlease enter your current job title: "")
+        passion_rating = int(input(""Rate your job in terms of passion on a scale from 1 to 10: ""))
+        growth_rating = int(input(""Rate your job in terms of growth on a scale from 1 to 10: ""))
+ 
+        print(""List up to three skills or areas you have grown in or are passionate about in your current job."")
+        for i in range(3):
+                skill = input(f""Skill/Area {i + 1}: "")
+                desc = input(""Description: "")
+                skill_tuple = (skill, desc)
+                skill_desc.append(skill_tuple)
+
+        print(f""Career Path Summary:\nJob Title: {job_title}\nPassion Rating: {passion_rating}\nGrowth Rating: {growth_rating}"")
+        print(f""\nSkills/Areas of Growth and Passion:\n"")
+        for i in range(3):
+                print(f""{i + 1}. {skill_desc[i][0]} - {skill_desc[i][1]}"")
+
+        if (passion_rating + growth_rating)>=14:
+                print(""Analysis:\nYour current job seems to align well with your passion and growth goals!"")
+        else:
+                print(""Analysis:\nYou might want to explore opportunities that align more closely with your passion and growth aspirations."")"
+"#Python Equivalent
+if __name__ == ""__main__"":
+        #declare variables
+        employee_details = []
+        tot_hours = 0
+        tot_projects = 0
+        tot_score = 0
+
+        no_employees = int(input(""Welcome to the Employee Dedication and Commitment Tracker!\nPlease enter the number of employees you want to track: ""))
+
+        for i in range(no_employees):
+                #get employee details
+                print(f""Employee {i + 1}:"")
+                employee_name = input(""Enter Employee's Name: "")
+                hours_worked = int(input(""Enter total hours worked in the past month: ""))
+                no_projects = int(input(""Enter the number of extra initiatives or projects: ""))
+                score = int(input(""Enter dedication score (1-10): ""))
+
+                #add to employee details list
+                employee_tuple = (employee_name, hours_worked, no_projects, score)
+                employee_details.append(employee_tuple)
+
+                #tot numbers to get averages later
+                tot_hours += hours_worked
+                tot_projects += no_projects
+                tot_score += score
+
+        #display calculation
+        print(""Calculating averages and analyzing data..."")
+
+        #compute averages and convert to float
+        avg_score = float(tot_score)/float(no_employees);
+        avg_hours = float(tot_hours)/float(no_employees);
+        avg_projects = float(tot_projects)/float(no_employees);
+
+        #display averages
+        print(f""Average Hours Worked: {avg_hours}"")
+        print(f""\nAverage Dedication Score: {avg_score}"");
+
+        #display highly dedicated employees
+        print(""Highly Dedicated Employees:"")
+        for i in range(no_employees):
+                if (8 <= employee_details[i][3] and employee_details[i][1] > avg_hours):
+                        print(f""- {employee_details[i][0]} ({employee_details[i][1]} hours, Score: {employee_details[i][3]}"")
+
+        #analyze data
+        if (avg_projects > avg_hours / 40):
+                print(""- Employees taking on more initiatives tend to work more hours."")        
+        else:
+                print(""- Extra initiatives do not significantly affect average working hours."")
+
+        if (avg_score > 7):
+                print(""- Higher dedication scores are associated with employees taking on more initiatives."")
+        else:
+                print(""- Dedication scores do not significantly correlate with the number of initiatives."")
+
+        #prompt end of report
+        print(""End of Report."")"
+"#Python Equivalent (Level 6.5)
+
+import pandas as pd
+
+#import data
+business_data = pd.read_csv(""business_file_path"")
+buildings_data = pd.read_csv(""buildings_file_path"")
+resident_data = pd.read_csv(""resident_file_path"")
+event_data = pd.read_csv(""event_file_path"")
+
+#join combo data
+business_buildings = pd.merge(business_data, buildings_data, on=""BuildingID"")
+resident_buildings = pd.merge(resident_data, buildings_data, on=""BuildingID"")
+events_buildings = pd.merge(event_data, buildings_data, on=""BuildingID"")
+
+#Yearly business growth
+yearly_bus_growth = business_buildings.groupby(business_buildings[""YearBuilt""].dt.year).agg(no_businesses =(""BusinessID"", ""nunique"")).reset_index()
+
+#no of businesses by category
+bus_by_category = business_buildings.groupby(business_buildings[""Category""]).agg(no_businesses =(""BusinessID"", ""nunique"")).reset_index()
+
+#resident growth
+resident_growth = resident_data.groupby(resident_data[""MoveInDate""].dt.year).agg(no_residents =(""ResidentID"", ""nunique"")).reset_index()
+
+#resident duration per building type
+resident_duration_type = resident_buildings.groupby(""Type"").agg(avg_duration = (""MoveInDate"", lambda x: ((pd.Timestamp.now() - x).dt.days.mean()))).reset_index()
+
+
+#type, attendance, events
+type_attendance_event = events_buildings.groupby(events_buildings[""Type""]).agg(avg_attendance = (""Attendance"", ""mean""),tot_attendance = (""Attendance"", ""sum""), no_events =(""EventID"", ""nunique"")).reset_index()
+
+#display report
+print(yearly_bus_growth)
+print(bus_by_category)
+print(resident_growth)
+print(resident_duration_type)
+print(type_attendance_event)"
+"#Python equivalent
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import folium
+from scipy.stats import linregress
+
+data = pd.read_csv(""Seattle's Coffee Shop file path"")
+
+#explore
+print(data.head())
+print(data.describe())
+print(data.info())
+
+#scatter plot of shops
+plt.scatter(data[""Longitude""], data[""Latitude""], alpha=0.6)
+plt.title(""Seatle Coffee Shop Locations"")
+plt.xlabel(""Longitude"")
+plt.ylabel(""Latitude"")
+plt.show()
+
+#density map
+plt.hexbin(data[""Longitude""], data[""Latitude""], gridsize=30, cmap=""Blues"")
+plt.colorbar(label=""Density"")
+plt.title(""Seatle Coffee Shop Locations"")
+plt.xlabel(""Longitude"")
+plt.ylabel(""Latitude"")
+plt.show()
+
+#Relationship between Review Count and Ratings
+sns.regplot(x=""Ratings"", y=""Review_Count"", data=data, scatter_kws = {""alpha"": 0.6})        
+plt.title(""Review Count vs Rating"")
+plt.show()
+
+#Top rated coffee shops
+top_rated_shops = data.nlargest(10, [""Rating""], [""Review_Count""])
+print(top_rated_shops)
+
+#Count of coffee shops per price range
+price_distribution = data[""Price_Range""].value_counts().reset_index()
+price_distribution.columns = [""Price_Range"", ""Count""]
+
+
+#Plot Count vs Price Range
+sns.barplot(x=""Price_Range"", y=""Count"", data=price_distribution)
+plt.title(""Shop Count vs Price Range"")
+plt.show()
+
+#correlation between Price Range & Rating
+data[""Price_Range_Num""] = pd.Categorical(""Price_Range"").codes
+correlation, p_value = linregress(data[""Price_Range_Num""], data[""Rating""])[:2]
+print(""Correlation: "", correlation)
+
+#interactive map
+map = folium.Map(location=[data[""Latitude""].mean(),data[""Longitude""].mean()], zoom_start=12)
+for _, row in data.iterrows():
+        folium.Marker([row[""Latitude""], row[""Longitude""]],
+                popup=f""{row[""Shop_Name""]}<br>Rating: {row[""Rating""]}<br>Review Count: {row[""Review_Count""]}"").add_to(map)
+
+map.save(""Seattles_Coffee_Shop.html"")"
+"#Python Equivalent
+import pandas as pd
+import seaborn as sns
+
+#import data
+data = pd.read_csv(""raw_data_file_path.csv"")
+
+#explore
+print(data.head(5))
+print(data.describe())
+print(data.info())
+
+#box office by release year
+box_office_by_release_year = data.groupby(""release_year"")[""gross_worldwide_box_office_earnings""].mean()
+
+#filter movies from 2000 to 2010 & get average box office
+movies_in_a_decade = data[(data[""release_year""]>=2000) & (data[""release_year""]<=2010)]
+
+avg_box_office_of_movies_in_a_decade = movies_in_a_decade[""gross_worldwide_box_office_earnings""].mean()
+
+#display
+print(avg_box_office_of_movies_in_a_decade)
+
+#number of movies per year
+no_movies_per_year = data[""release_year""].value_counts().reset_index()
+no_movies_per_year.columns = [""release_year"", ""no_movies_per_year""]
+
+#sort by release date
+no_movies_per_year = no_movies_per_year.sort_values(by=""release_date"")
+
+#set figure
+sns.set(rc={""figure.figsize"":(12:6)})
+
+#barplot
+sns.barplot(data=no_movies_per_year, x=""release_year"", y= ""no_movies_per_year"")"
+"if __name__ == ""__main__"":
+        no_cups=0        
+        invalid=0
+        choice=0
+        water=1000
+        milk=500
+        coffee_beans=100
+        cups=10
+        to_add=0
+
+        print(""Welcome to the Coffee Machine Simulator!"")
+
+        while True:
+                try:
+                        choice = int(input(""Choose an action: (1) Make Coffee (2) Refill Water (3) Refill Milk (4) Add Coffee Beans (5) Check Status (6) Exit\n> ""))
+
+                        if choice == 1:
+                                invalid=1
+                                while invalid == 1:
+                                        no_cups = int(input(""How many cups of coffee do you want to make?\n> ""))
+
+                                        if no_cups < 0:
+                                                print(""Cups cant be negative. Try again."")
+                                        elif water>=no_cups*200 and milk>=no_cups*50 and coffee_beans>=no_cups*15 and cups>=no_cups:
+                                                water-=no_cups*200
+                                                milk-=no_cups*50
+                                                coffee_beans-=no_cups*15
+                                                cups-=no_cups
+                                                invalid=0
+                                        else:
+                                                print(""Not enough resources to make request. Here are the resources you need to refill:"")
+
+                                                if water < no_cups * 200:
+                                                        print(""Current water level: "", water, "" ml"")
+                                                        print(""Water needed to make request "", (no_cups*200-water), "" ml"")                                
+                                                if milk < no_cups * 50:
+                                                        print(""Current milk level: "", milk, "" ml"")
+                                                        print(""Milk needed to make request "", (no_cups * 50 - milk), "" ml"")
+                                                if coffee_beans < no_cups * 15:
+                                                        print(""Current number of coffee beans: "", coffee_beans)
+                                                        print(""Number of coffee beans needed to make request "", (no_cups * 15 - coffee_beans))
+                                                if cups < no_cups:
+                                                        print(f""Current number of cups: {cups}"")
+                                                        print(f""Number of cups needed to make request  {no_cups - cups}"")
+                                print(""Making "", no_cups, "" cups of coffee..."")
+                                print(""Success! Coffee made."")
+                                print(""Remaining: "", water, "" ml of water, "", milk, "" ml of milk, "", coffee_beans, "" coffee beans, "", cups, "" cups."")
+
+                        if choice == 2:
+                                invalid=1
+                                while invalid == 1:
+                                        to_add = int(input(""How much water do you want to add (in ml)?\n> ""))
+                                        if to_add < 0:
+                                                print(""Invalid input. Try again."")
+                                        else:
+                                                water+=to_add
+                                                invalid=0
+                                
+                                print(""Water refilled."")
+                                print(""Total water: "", water, "" ml."")
+
+                        if choice == 3:
+                                invalid=1
+                                while invalid == 1:
+                                        to_add = int(input(""How much milk do you want to add (in ml)?\n> ""))
+                                        if to_add < 0:
+                                                print(""Invalid input. Try again."")
+                                        else:
+                                                milk+=to_add
+                                                invalid=0
+                                
+                                print(""Milk refilled."")
+                                print(""Total milk: "", milk, "" ml."")
+
+                        if choice == 4:
+                                invalid=1
+                                while invalid == 1:
+                                        to_add = int(input(""How many coffee beans do you want to add?\n> ""))
+                                        if to_add < 0:
+                                                print(""Invalid input. Try again."")
+                                        else:
+                                                coffee_beans+=to_add
+                                                invalid=0
+                                
+                                print(""Coffee beans refilled."")
+                                print(""Total coffee beans: "", coffee_beans, ""."")
+
+                        if choice == 5:
+                                print(""Current Coffee Machine Status:\nWater "", water, "" ml\nMilk "", milk, "" ml\nCoffee Beans: "", coffee_beans, ""\nCan make up to "", cups, "" cups of coffee."")
+
+                        if choice == 6:
+                                print(""Thank you for using the Coffee Machine Simulator. Goodbye!"")
+                                break
+                except ValueError:
+                        print(""Invalid input. Try again"")"
+"
+#Python Equivalent
+import pandas as pd
+
+sessions = pd.read_csv(""sessions_file_path.csv"")
+mentors = pd.read_csv(""mentors_file_path.csv"")
+attendees = pd.read_csv(""attendees_file_path.csv"")
+attendance_record_table = pd.read_csv(""attendance_record_table_file_path.csv"")
+
+#Retrieve All Info
+sessions_after_6pm = sessions[sessions[""Date""].dt.time > pd.to_datetime(""18:00:00"").time()]
+print(sessions_after_6pm)
+
+
+#Joining Tables
+sessions_mentors = pd.merge(sessions, mentors, on=""MentorID"", how=""left"")
+print(sessions_mentors[[""SessionID"", ""Date"", ""Topic"", ""Name""]])
+
+#Aggregation
+aggregation = sessions_mentors.groupby(""Name"").size().reset_index(name=""number_of_sessions_hosted"")
+print(aggregation)
+
+#Complex Query
+attendees_record_table = pd.merge(attendees, attendance_record_table, on=""AttendeeID"", how=""inner"")
+
+attendees_record_table_sessions = pd.merge(attendees_record_table, sessions, on=""SessionID"", how=""inner"")
+
+complex_query = attendees_record_table_sessions[(attendees_record_table_sessions[""SkillLevel""] == ""Intermediate"") & (attendees_record_table_sessions[""Topic""].str.contains(""Python"", case=False))]
+
+complex_query = complex_query[[""AttendeeID"", ""Name""]]
+
+print(complex_query)"
+"#Python Equivalent
+import pandas as pd
+
+#import data
+books = pd.read_csv(""books_file_path.csv"")
+authors = pd.read_csv(""authors_file_path.csv"")
+borrowings = pd.read_csv(""borrowings_file_path.csv"")
+members = pd.read_csv(""members_file_path.csv"")
+
+#filter books
+fantasy_books_after_2000 = books[(books[""Genre""]==""Fantasy"") & (books[""PublicationYear""]>2000)]
+
+#display book titles
+print(fantasy_books_after_2000[""Title""])
+
+
+#join books & authors tables
+books_authors = pd.merge(books, authors, on=""AuthorID"", how=""left"")
+
+#display book title, author name, & author nationality
+print(books_authors[[""Title"", ""Name"", ""Nationality""]])
+
+
+#aggregation
+aggregation = books_authors.groupby(""Name"")[""BookID""].count().reset_index(name=""NumberOfBooks"")
+
+#display Number of Books per Author
+print(aggregation[[""Name"", ""NumberOfBooks""]])
+
+
+#merge 4 tables
+borrowings_books = pd.merge(borrowings, books, on=""BookID"", how=""inner"")
+borrowings_books_authors = pd.merge(borrowings_books, authors, on=""AuthorID"", how=""inner"")
+
+#distinguish member names
+members[""MemberName""] = members[""Name""]
+
+#join members table
+borrowings_books_authors_members = pd.merge(borrowings_books_authors, members, on=""MemberID"", how=""inner"")
+
+#convert to date time
+borrowings_books_authors_members[""ReturnDate""] = pd.to_datetime(borrowings_books_authors_members[""ReturnDate""], errors=""coerce"")
+borrowings_books_authors_members[""DateOfBirth""] = pd.to_datetime(borrowings_books_authors_members[""DateOfBirth""])
+
+#filter
+filtered_names = borrowings_books_authors_members[(borrowings_books_authors_members[""ReturnDate""].isna()) & (borrowings_books_authors_members[""DateOfBirth""] < pd.to_datetime(""1990-01-01""))]
+
+#display member names
+print(filtered_names[""MemberName""])"
+"#Python Equivalent
+import pandas as pd
+
+data = pd.read_csv(""weather_data.txt"", header=None, names=[""Date"", ""Temperature"", ""Humidity""])
+
+avg_temp = data[""Temperature""].mean()
+avg_humidity = data[""Humidity""].mean()
+max_temp = data[""Temperature""].max()
+min_temp = data[""Temperature""].min()
+
+print(f""Average Temperature: {avg_temp: .2f} Celsius"")
+print(f""Average Humidity: {avg_humidity: .2f}%"")
+print(f""Maximum Temperature: {max_temp} Celsius"")
+print(f""Minimum Temperature: {min_temp} Celsius"")"
+"#Python Translation
+if __name__ == ""__main__"":
+
+        laptops = [(""Dell"", ""15\"""", 500),(""HP"", ""13\"""", 450)]
+        brands = {}
+
+        min_price = laptops[0][2]
+        for laptop in laptops:
+                current_price = laptop[2]
+                current_brand = laptop[0]
+                
+                if min_price > current_price:
+                        min_price = current_price
+                
+                if current_brand in brands:
+                        brands[current_brand][0] += current_price
+                        brands[current_brand][1] += 1
+                else:
+                        brands[current_brand] = [current_price, 1]
+
+        print(f""Cheapest Price: ${min_price: .2f}"")
+        print(""Average Prices per Brand:"")
+        for brand, data in brands.items():
+                avg_price = data[0]/data[1]
+                print(f""{brand}: ${avg_price: .2f}"")"
+"#Python Equivalent
+import random as rand
+
+no_guests = int(input(""How many guests are attending: ""))
+guest_list =[]
+
+rand_guest_number = rand.randint(0, no_guests-1)
+
+print(""Enter "", no_guests, "" guest names: "")
+for i in range(no_guests):
+    guest_list.append(input())
+
+print(""Guest to sit at the head of the table: "", guest_list[rand_guest_number])"
+"#Python Equivalent
+import pandas as pd
+import matplotlib.pyplot as plt
+
+#Data Loading and Inspection
+data = pd.read_csv(""dopamine_levels.csv"")
+print(data.head())
+print(data.info())
+
+#Data Summary
+print(data[""activity_name""].nunique())
+print(""Average dopamine levels: "", data[""avg_dopamine_level""].mean())
+
+#Activity Analysis
+print(""Highest average dopamine levels: "", data.loc[data[""avg_dopamine_level""].idxmax()])
+print(""Lowest average dopamine levels: "", data.loc[data[""avg_dopamine_level""].idxmin()])
+
+#Visualization
+plt.figure(figsize=(10,6))
+plt.bar(x=data[""activity_name""], height=data[""avg_dopamine_level""])
+plt.title(""Bar graph of the Average Dopamine Levels per Activity"")
+plt.xlabel(""Activities"")
+plt.ylabel(""Dopamine Levels"")
+plt.xticks(rotation=45)
+plt.show()"
+"import pandas as pd
+
+# Import tables
+products = pd.read_csv(""products.csv"")
+orders = pd.read_csv(""orders.csv"")
+customers = pd.read_csv(""customers.csv"")
+
+# Merge product & order tables
+product_order = pd.merge(products, orders, on=""product_id"", how=""inner"")
+
+# Convert to date time
+product_order[""order_date""] = pd.to_datetime(product_order[""order_date""])
+
+# Get needed columns
+top_sales = product_order[[""order_date"", ""category"", ""price"", ""quantity""]]
+
+# Create sales column
+top_sales[""sales""] = top_sales[""price""] * top_sales[""quantity""]
+
+# Filter Q4
+top_sales = top_sales[(top_sales[""order_date""].dt.year == 2023) & (top_sales[""order_date""].dt.quarter == 4)]
+
+# Sum sales by category
+top_sales = top_sales.groupby(""category"")[""sales""].sum().reset_index(name=""tot_sales"")
+
+# Get top 5
+top_sales = top_sales.sort_values(by=""tot_sales"", ascending=False).head(5)
+
+# Display top 5
+print(top_sales)
+
+# Rename name to customer_name
+customers = customers.rename(columns={""name"": ""customer_name""})
+
+# Merge product-order & customer tables
+customer_product_order = pd.merge(product_order, customers, on=""customer_id"", how=""inner"")
+
+# Filter needed columns
+customer_product_order = customer_product_order[[""customer_id"", ""customer_name"", ""category"", ""product_id"", ""order_date""]]
+
+# Get the date 6 months ago
+last_6_months = pd.Timestamp.now() - pd.DateOffset(months=6)
+
+# Filter customers purchased within 6 months
+customer_product_order_6_months = customer_product_order[customer_product_order[""order_date""] >= last_6_months]
+
+# Join to get customers who purchased a different product of the same category
+agg_product = pd.merge(customer_product_order_6_months, customer_product_order_6_months, on=[""customer_id"", ""category""], how=""inner"", suffixes=(""_x"", ""_y""))
+
+# Filter products
+agg_product = agg_product[agg_product[""product_id_x""] != agg_product[""product_id_y""]]
+agg_product = agg_product.groupby([""customer_id"", ""customer_name""])[""product_id_x""].nunique().reset_index(name=""product_count"")
+agg_product = agg_product[agg_product[""product_count""] > 1]
+
+# Display customers
+print(agg_product)
+"
+"#Python Equivalent
+import pandas as pd
+
+#import tables
+students = pd.read_csv(""students.csv"")
+logs = pd.read_csv(""library_access_logs.csv"")
+grades = pd.read_csv(""grades.csv"")
+
+#join students & logs table
+student_late_night_log = pd.merge(students, logs, on = ""student_id"", how = ""inner"")
+
+#convert date time
+student_late_night_log[""access_timestamp""] = pd.to_datetime(student_late_night_log[""access_timestamp""])
+
+#define today
+today = pd.Timestamp.today()
+seven_days_ago = today.normalize() - pd.Timedelta(days=7)
+
+#filter late night students
+student_late_night_log = student_late_night_log[((student_late_night_log[""access_timestamp""].dt.hour >= 23) | (student_late_night_log[""access_timestamp""].dt.hour <= 4)) & (student_late_night_log[""access_timestamp""] < today) & (student_late_night_log[""access_timestamp""] >= (seven_days_ago))]
+
+#calculate average late nights per week
+student_late_night_log = student_late_night_log.groupby(""student_id"")[""access_timestamp""].nunique().reset_index(name = ""avg_nights_per_week"")
+
+#select needed columns only
+student_late_night_log = student_late_night_log[[""student_id"", ""first_name"", ""last_name"", ""avg_nights_per_week""]]
+
+#display average late nights
+print(student_late_night_log.sort_values(""avg_nights_per_week"", ascending=False))
+
+
+
+#join grades & student late night log tables
+grade_logs = pd.merge(student_late_night_log, grades, on = ""student_id"", how = ""left"", suffixes = [""_x"", ""_y""])
+
+#create late_night_frequency column through vectorized operation
+def categorize_late_night_freq(x):
+    if x > 6:
+        return ""+6""
+    elif x >= 5:
+        return ""5-6""
+    elif x >= 4:
+        return ""4-5""
+    elif x >= 3:
+        return ""3-4""
+    elif x >= 2:
+        return ""2-3""
+    elif x >= 1:
+        return ""1-2""
+    elif x >= 0:
+        return ""0-1""
+
+grade_logs[""late_night_frequency""] = grade_logs[""avg_nights_per_week""].apply(categorize_late_night_freq)
+
+#group by
+grade_logs_by_late_night_frequency = grade_logs.groupby(""late_night_frequency"")[""final_grade""].mean().reset_index(name=""avg_final_grade"")
+
+#major difference
+grade_logs_by_course_code = grade_logs.groupby(""course_code"")[""avg_nights_per_week""].mean().reset_index()"
+"#Python Equivalent
+import pandas as pd
+
+users = pd.read_csv(""users.csv"")
+
+def get_referral_chain(users, max_depth=5)
+    referral_chain = []
+
+    def find_chain(users, current_level):
+        if current_level > max_depth:
+            return []
+
+        referrer = users.loc[users[""user_id""] == user_id, ""referrer_id""].squeeze()
+
+        if pd.isna(referrer) | referrer == """":
+            return []
+
+        return [referrer] + find_chain(referrer, current_level + 1)"
+"#Python Equivalent
+
+workouts = [
+    (""HIIT"", ""cardio"", 10),
+    (""Quick Cardio Blast"", ""cardio"", 20),
+    (""Strength Training Session"", ""strength"", 45),
+    (""Bodybuilding"", ""strength"", 30),
+    (""Yoga"", ""flexibility"", 15)
+]
+
+def getWorkout(mins_available, workout_type):
+    found = False
+
+    print(""Workout Suggestions:"")
+
+    for i, workout in enumerate(workouts, start = 1):
+        if workout[1] == workout_type and workout[2] <= mins_available:
+            print(i, "". "", workout[0], "" - Duration: "", workout[2], "" minutes"")
+            found = True
+    if not found:
+        print(""No workouts match your criteria. Consider adjusting your available time or workout preference."")
+
+if __name__==""__main__"":
+    print(""Welcome to the Late-Night Workout Planner!"")
+    mins_available = int(input(""Please enter how many minutes you have available for your workout: ""))
+
+    workout_type = input(""What type of workout do you prefer? (cardio/strength/flexibility): "")
+
+    getWorkout(mins_available, workout_type)"
+"#Python Equivalent
+import random
+
+if __name__==""__main__"":
+    answers = [""Yes"", ""Definitely"", ""Maybe"", ""Ask again later"", ""No"", ""Doubtful""]
+
+    print(""Welcome to the Magic 8-Ball Simulator!"")
+
+    response = """"
+    while response.lower() != ""n"":
+        question = input(""Enter your yes-or-no question: "")
+        print(random.choice(answers))
+        response = input(""Do you want to ask another question? (y/n): "")
+
+    print(""Thank you for using the Magic 8-Ball Simulator. Goodbye!"")"
