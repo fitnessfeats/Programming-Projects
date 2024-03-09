@@ -1,0 +1,523 @@
+"import java.util.Scanner;
+
+public class Greeting {
+
+    public static void main(String[] args) {
+        // Create a Scanner object to read input
+        Scanner scanner = new Scanner(System.in);
+
+        // Prompt the user to enter their name
+        System.out.print(""Enter your name: "");
+        String name = scanner.nextLine();
+
+        // Display the greeting
+        System.out.println(""Hello, "" + name + ""! Welcome to the world of Java!"");
+
+        // Close the scanner
+        scanner.close();
+    }
+}
+"
+"import java.util.Scanner;
+
+public class CoffeeCup {
+        public static void main(String[] args) {
+                Scanner scanner = new Scanner(System.in);
+                System.out.println(""Choose your usual coffee cup size: "");
+                System.out.println(""1. Large"");
+                System.out.println(""2. Medium"");
+                System.out.println(""3. Small"");
+
+                //Ask user for cup choice
+                System.out.print(""Enter your choice (1/2/3): "");
+                int size = scanner.nextInt();
+        
+                if(size == 1) {
+                System.out.println(""Thanks for your choice! To reduce consumption, try choosing Medium next time!"");
+                        }
+                else if(size == 2) {
+                System.out.println(""Thanks for your choice! To reduce consumption, try choosing Small next time!"");
+                        }
+                else if(size == 3) {
+                System.out.println(""Thanks for your choice! Keep it up!"");
+                        }
+                else {
+                        System.out.println(""You've entered an invalid number. Please try again"");
+                        }
+                scanner.close();
+                }
+        }"
+"//import scanner to read user inputs
+import java.util.Scanner;
+
+public class FavoriteLanguage {
+public static void main(String[] args) {
+        //initialize scanner
+        Scanner scanner = new Scanner(System.in);
+
+        //prompt and get user's programming language
+        System.out.print(""Enter your favorite programming language: "");
+        String language = scanner.nextLine();
+
+        //print with user input
+        System.out.println(""Ah, "" + language + ""! That's a great choice for programming!"");
+        }
+}"
+
+
+"import java.util.Scanner;
+
+public class CoffeeManager {
+        private static final Scanner scanner = new Scanner(System.in);
+        private static final int MAX_CUPS = 3;
+
+
+        public static void main(String[]args) {
+
+        System.out.print(""How many cups of coffee have you had today? "");
+        int CUPS = scanner.nextInt();
+
+        if (CUPS > MAX_CUPS) {
+                System.out.print(""Be careful! It's recommended not to exceed 3 cups of coffee a day."");
+                }
+        else {
+                System.out.print(""You're within the recommended coffee consumption limit. Enjoy!"");
+                }
+
+                scanner.close();
+                }
+
+        
+        }"
+"import java.util.Scanner;
+
+public class CandyCounter {
+        private static final Scanner scanner = new Scanner(System.in);
+        private static int total_candies = 0;
+
+        public static void addChocolate() {
+                System.out.print(""Enter the number of chocolates you've collected: "");
+                int choco_collected = scanner.nextInt();
+                total_candies += choco_collected;
+                }
+
+        public static void addLollipop() {
+                System.out.print(""Enter the number of lollipops you've collected: "");
+                int lollipops_collected = scanner.nextInt();
+                total_candies += lollipops_collected;
+                }
+
+        public static void addGummies() {
+                System.out.print(""Enter the number of gummies you've collected: "");
+                int gummies_collected = scanner.nextInt();
+                total_candies += gummies_collected;
+                }
+        
+        public static void display_Total_Candies() {
+                System.out.print(""You've collected a total of "" + total_candies + "" candies! Happy Halloween!"");
+                }
+
+        public static void main(String[]args) {
+                addChocolate();
+                addLollipop();
+                addGummies();
+                display_Total_Candies();
+                scanner.close();
+                } 
+        }"
+"import java.util.Scanner;
+
+public class StutterText{
+        //Declare scanner & input string
+        private static final Scanner scanner = new Scanner(System.in);
+
+
+        public static String stutter(String text){
+                //check length of text if minimum of 2 char
+                if (text.length() >= 2){
+                        String first_two_char = text.substring(0,2);
+                        return first_two_char + text;
+                        }
+                else{
+                        return ""Text is too short to stutter."";
+                        }
+                }
+
+        public static void main(String[]args){
+                //Get user input
+                System.out.print(""Enter a piece of text: "");
+                String input_string = scanner.nextLine();
+
+                //apply function
+                System.out.println(stutter(input_string));
+                
+                //end
+                scanner.close();
+                }
+        
+        }"
+"//Java Equivalent
+import java.util.Scanner;
+
+public class Holiday_Free_Time_Counter{
+        public static void main(String[] args){
+                Scanner scanner = new Scanner(System.in);
+                int tot_free_hours = 0;
+                
+                System.out.println(""Enter the number of hours you're busy each day during the holiday week:"");
+
+                for(int i=0; i<7; i++){
+                        int hours = scanner.nextInt();
+                        tot_free_hours += 24 - hours;
+                        }
+
+                System.out.println(""Total free hours during the holiday week: "" + tot_free_hours + "" hours"");
+                scanner.close();
+                }
+        }"
+"import java.util.Scanner;
+
+public class calculator{
+        public static int sum(int a, int b){
+                return a + b;
+                }
+
+        public static int difference(int a, int b){
+                return a - b;
+                }
+
+        public static int product(int a, int b){
+                return a * b;
+                }
+
+        public static int quotient(int a, int b){
+                if (b==0){
+                        throw new ArithmeticException(""Can't divide by zero. Try again."");
+                        }
+                return a / b;
+
+                }
+
+
+        public static void main(String[] args){
+                Scanner scanner = new Scanner(System.in);
+                int a;
+                int b;
+                String operation;
+                String choice;
+                boolean to_loop = true;
+
+
+        while (to_loop){
+                try{
+
+                System.out.print(""Enter operation (+, -, *, /): "");
+                operation = scanner.nextLine();
+
+                System.out.print(""Enter first number: "");
+                a = Integer.parseInt(scanner.nextLine());
+        
+                System.out.print(""Enter second number: "");
+                b = Integer.parseInt(scanner.nextLine());
+                
+                switch (operation) {
+                        case ""+"":
+                                System.out.println(""Sum is "" + sum(a,b));
+                                break;
+                                
+
+                        case ""-"":
+                                System.out.println(""Difference is "" + difference(a,b));
+                                break;
+                                
+
+                        case ""*"":
+                                System.out.println(""Product is "" + product(a,b));
+                                break;
+                                
+
+                        case ""/"":
+                                System.out.println(""Quotient is "" + quotient(a,b));
+                                break;
+                                
+
+                        default:
+                                System.out.println(""Invalid operation. Try again."");
+                        
+
+                        }
+                
+
+                System.out.print(""Do you want to calculate more? (y/n) "");
+                choice = scanner.nextLine();
+                if (!choice.equalsIgnoreCase(""y"")){
+                        to_loop = false;
+                        }
+                
+
+                }
+
+                catch (NumberFormatException e){
+                        System.out.println(""Invalid number. Try again."");
+                        }
+
+                catch (ArithmeticException e){
+                        System.out.println(e.getMessage());
+                        }
+                }
+                scanner.close();
+                }
+
+        }"
+"import java.util.Scanner;
+
+public class Coffee_Machine_Simulator{
+        public static void main(String[] args){
+                int no_cups;                
+                int invalid;
+                int choice=0;
+                int water=1000;
+                int milk=500;
+                int coffee_beans=100;
+                int cups=10;
+                int to_add;
+
+
+
+                Scanner scanner = new Scanner(System.in);
+
+                System.out.println(""Welcome to the Coffee Machine Simulator!"");
+
+                while(true){
+                        System.out.println(""Choose an action: (1) Make Coffee (2) Refill Water (3) Refill Milk (4) Add Coffee Beans (5) Check Status (6) Exit"");
+                        System.out.print(""> "");
+
+                        if(scanner.hasNextInt()){
+                                choice = scanner.nextInt();
+                                }
+                        else{
+                                System.out.println(""Invalid input. Try again"");
+                                scanner.next();
+                                }
+
+                        if(choice>6){
+                                System.out.println(""Please choose from 1 to 6."");
+                                }
+
+                        switch(choice){
+                                case 1:
+                                        invalid=1;
+                                        while(invalid==1){
+                                                System.out.println(""How many cups of coffee do you want to make?"");
+                                                System.out.print(""> "");
+                                                no_cups = scanner.nextInt();
+                                                if(no_cups<0){
+                                                        System.out.println(""Cups cant be negative. Try again"");
+                                                        }
+                                                else if(water>=no_cups*200 && milk>=no_cups*50 && coffee_beans>=no_cups*15 && cups>=no_cups){
+                                                        water-=no_cups*200;
+                                                        milk-=no_cups*50;
+                                                        coffee_beans-=no_cups*15;
+                                                        cups-=no_cups;
+                                                        invalid=0;
+                                                        }
+                                                else{
+                                                        System.out.println(""Not enough resources to make request. Here are the resources you need to refill:"");
+                                                        if(water<no_cups*200){
+                                                                System.out.println(""Current water level: "" + water + "" ml"");
+                                                                System.out.println(""Water needed to make request "" + (no_cups*200-water) + "" ml"");
+                                                                }
+                                                        if(milk<no_cups*50){
+                                                                System.out.println(""Current milk level: "" + milk + "" ml"");
+                                                                System.out.println(""Milk needed to make request "" + (no_cups*50-milk) + "" ml"");
+                                                                }
+                                                        if(coffee_beans<no_cups*15){
+                                                                System.out.println(""Current number of coffee beans: "" + coffee_beans);
+                                                                System.out.println(""Number of coffee beans needed to make request "" + (no_cups*15-coffee_beans));
+                                                                }
+                                                        if(cups<no_cups){
+                                                                System.out.println(""Current number of cups: "" + cups);
+                                                                System.out.println(""Number of cups needed to make request "" + (no_cups-cups));
+                                                                }
+                                
+                                                        }
+                                                }
+                                        System.out.println(""Making "" + no_cups + "" cups of coffee..."");
+                                        System.out.println(""Success! Coffee made."");
+                                        System.out.println(""Remaining: "" + water + "" ml of water, "" + milk + "" ml of milk, "" + coffee_beans + "" coffee beans, "" + cups + "" cups."");
+                                        break;
+
+                                case 2:
+                                        invalid=1;
+                                        while(invalid==1){
+                                                System.out.println(""How much water do you want to add (in ml)?"");
+                                                System.out.print(""> "");
+                                                to_add = scanner.nextInt();
+                                                if(to_add<0){
+                                                        System.out.println(""Invalid input. Try again."");
+                                                        }
+                                                else{
+                                                        water+=to_add;
+                                                        invalid=0;
+                                                        }
+                                                }
+                                        
+                                        System.out.println(""Water refilled."");
+                                        System.out.println(""Total water: "" + water + "" ml."");
+                                        break;
+
+                                case 3:
+                                        invalid=1;
+                                        while(invalid==1){
+                                                System.out.println(""How much milk do you want to add (in ml)?"");
+                                                System.out.print(""> "");
+                                                to_add = scanner.nextInt();
+                                                if(to_add<0){
+                                                        System.out.println(""Invalid input. Try again."");
+                                                        }
+                                                else{
+                                                        milk+=to_add;
+                                                        invalid=0;
+                                                        }
+                                                }
+                                        
+                                        System.out.println(""Milk refilled."");
+                                        System.out.println(""Total milk: "" + milk + "" ml."");
+                                        break;
+
+                                case 4:
+                                        invalid=1;
+                                        while(invalid==1){
+                                                System.out.println(""How many coffee beans do you want to add?"");
+                                                System.out.print(""> "");
+                                                to_add = scanner.nextInt();
+                                                if(to_add<0){
+                                                        System.out.println(""Invalid input. Try again."");
+                                                        }
+                                                else{
+                                                        coffee_beans+=to_add;
+                                                        invalid=0;
+                                                        }
+                                                }
+                                        
+                                        System.out.println(""Coffee beans added."");
+                                        System.out.println(""Total coffee beans: "" + coffee_beans + ""."");
+                                        break;
+
+                                case 5:
+                                        System.out.println(""Current Coffee Machine Status:"");
+                                        System.out.println(""Water "" + water + "" ml"");
+                                        System.out.println(""Milk "" + milk + "" ml"");
+                                        System.out.println(""Coffee Beans: "" + coffee_beans);
+                                        System.out.println(""Can make up to "" + cups + "" cups of coffee."");
+                                        break;
+
+                                case 6:
+                                        System.out.println(""Thank you for using the Coffee Machine Simulator. Goodbye!"");
+                                        scanner.close();
+                                        return;
+
+                                default:
+                                        System.out.println(""Invalid input. Try again"");
+                                        break;
+                                }
+                        }
+                
+                }
+        }"
+"//import libraries for file reading & data manipulation
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+//declare class
+public class WeatherDataAnalysis{
+        //declare main function
+        public static void main(String[]args){
+                //declare variables: line to get each line in the text file, totalTemp & totalHumidity to sum the temp & humidity gathered from each line
+                String line;
+                double totalTemp = 0, totalHumidity = 0;
+
+                //maxTemp & minTemp to store the minimum & maximum temperatures
+                double maxTemp = Double.MIN_VALUE, minTemp = Double.MAX_VALUE;
+
+                //declare count to store the number of instances or lines to be used to get the average
+                int count = 0;
+
+                //use BufferedReader & FileReader to read each line of the txt file
+                try(BufferedReader br = new BufferedReader(new FileReader(""weather_data.txt""))){
+                        //get each line until there's no more
+                        while ((line=br.readLine()) != null){
+                                //split each line based on the delimiter "", "" and store each token in String[] data array
+                                String[]data = line.split("", "");
+
+                                //check if there are 3 elements in the current line
+                                if (data.length != 3){
+                                        //skips the line if it doesnt have 3 elements
+                                        continue;
+                                }
+
+
+                                //store each line's temp & humidity from the data[] array, data[1] corresponds to the 2nd element which is temperature, data[2] corresponds to the 3rd element which is humidity
+                                double temp = Double.parseDouble(data[1].trim());
+                                double humidity = Double.parseDouble(data[2].trim());
+
+                                //add to the running totals
+                                totalTemp += temp;
+                                totalHumidity += humidity;
+
+                                //if there's a temp that exceeds the maximum or is lower than the minimum then update maxTemp or minTemp
+                                if (temp > maxTemp) maxTemp = temp;
+                                if (temp < minTemp) minTemp = temp;
+
+                                //increment the count to get the average later on
+                                count++;
+                        }
+
+                } catch(IOException e) {
+                        //prompt any errors if encountered
+                        e.printStackTrace();
+                }
+
+                if (count > 0){
+                        //get the average temperature & humidity by dividing the total over the count
+                        double avgTemp = totalTemp / count;
+                        double avgHumidity = totalHumidity / count;
+
+                        //dislay average temperature, average humidity, maximum & minimum temperatures
+                        System.out.println(""Average Temperature: "" + avgTemp + "" Celsius"");
+                        System.out.println(""Average Humidity: "" + avgHumidity + ""%"");
+                        System.out.println(""Maximum Temperature: "" + maxTemp + "" Celsius"");
+                        System.out.println(""Minimum Temperature: "" + minTemp + "" Celsius"");
+                } else {
+                        System.out.println(""There's no data to analyze."");
+                }
+        }
+}"
+"import java.util.Random;
+import java.util.Scanner;
+
+public class head_of_the_table{
+    public static void main(String[]args){
+        Random rand = new Random();
+        int no_guests;
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print(""How many guests are attending: "");
+        no_guests = scanner.nextInt();
+        scanner.nextLine();
+
+        String[] guest_list = new String[no_guests];
+
+        int rand_guest_number = rand.nextInt(no_guests);
+
+        System.out.println(""Enter "" + no_guests + "" guest names: "");
+        for(int i = 0; i < no_guests; i++){
+            guest_list[i] = scanner.nextLine();
+        }
+
+        System.out.println(""Guest to sit at the head of the table: "" + guest_list[rand_guest_number]);
+
+        scanner.close();
+    }
+}"
