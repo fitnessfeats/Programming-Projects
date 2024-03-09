@@ -1,0 +1,514 @@
+"#Print list
+haunted_houses <- c(""Phantom Manor"", ""Ghoul's Castle"", ""Wraith Residence"", ""Spooky Hollow"", ""Mystery Mansion"")
+cat(""Entire list:\n"", haunted_houses)
+
+#Print number of houses
+num_houses <- length(haunted_houses)
+cat(""There are "", num_houses, "" haunted houses"")
+
+#Convert to lower case
+lower_case_house_names <- tolower(haunted_houses)
+cat(""Lower case haunted house names:\n"", lower_case_house_names)
+
+#Get 3rd house name
+third_house <- haunted_houses[3]
+cat(""The third house is "", third_house)
+
+#Append a new house name
+haunted_houses <- c(haunted_houses,  ""Ghostly Abode"")
+cat(""Updated list:\n"", haunted_houses)"
+"data <- read.csv(BakiCharacters.csv)
+
+head(data, 5)
+
+num_char <- nrow(data)
+cat(""The total number of characters is "", num_char)
+
+char_most_wins_index <- which.max(data$Wins)
+max_win_count <- data$Wins[char_most_wins_index]
+char_most_wins <- data$Name[char_most_wins_index]
+
+cat(""The character with most wins is "", char_most_wins, "" with "", max_win_count, "" wins."")"
+"#R Equivalent Leading By Example
+install.packages(""tidyverse"")
+library(tidyverse)
+
+leader_arrival_before_8am <- attendance%>%
+        filter(check_in_time < as.POSIXct(""08:00:00"", format=""%H:%M:%S"") & (position == ""Manager"" | position == ""Director"")) %>%
+        select(date, team, emp_id) %>%
+        mutate(arrival_8am = 1)
+
+leader_arrival_before_8am_tally <- leader_arrival_before_8am%>%
+        group_by(team, emp_id) %>%
+        summarise(tally_8am_arrival = sum(arrival_8am)) %>%
+        mutate(rank = dense_rank(desc(tally_8am_arrival))) %>%
+
+result <- filter(leader_arrival_before_8am_tally, rank == 1)
+print(result)"
+"#import dataset & store it in gift
+gift <- read.csv(""C:\Users\Lenovo\Desktop\Learning\R\Data Sets\ChristmasGifts.csv"")
+
+#display first 5 rows
+head(gift, 5)
+
+#display number of gifts
+num_gifts <- nrow(gift)
+cat(""Number of gifts: "", num_gifts, ""\n"")
+
+#total cost of all purchased gifts
+total_cost <- sum(gift$Cost[gift$Purchased == 1])
+cat(""The total cost of all purchased gifts: $"", total_cost, ""\n"")
+
+#get a table of frequency
+gift_freq <- table(gift$GiftType)
+
+#most common gift type
+most_common_gift_type <- names(gift_freq)[which.max(gift_freq)]
+cat(""The most common type of gift is "", most_common_gift_type, ""\n"")"
+"#import data
+data <- read.csv(""C:\Users\Lenovo\Desktop\Learning\R\Data Sets\random_mtcars_dataset.csv"")
+
+#display first 5 rows
+head(data,5)
+
+#display summary
+summary(data)
+
+#create mpg_level
+data$mpg_level <- ifelse(data$mpg > 25, ""High"",
+                        ifelse(data$mpg >= 15, ""Medium"", ""Low""))
+
+#create table frequency
+mpg_counts <- table(data$mpg_level)
+
+#barplot
+barplot(mpg_counts, main=""Cars per MPG Level Category"", xlab=""MPG Level"", ylab=""Number of Cars"")
+
+#bonus MPG vs HP scatterplot
+plot(data$mpg, data$hp, xlab=""MPG Level"", ylab=""Horsepower"")
+
+#bonus MPG vs WT scatterplot
+plot(data$mpg, data$weight, xlab=""MPG Level"", ylab=""Weight"")"
+"library(dyplr)
+library(ggplot2)
+
+#import data
+data <- read.csv(""C:\Users\Lenovo\Desktop\Learning\R\Data Sets\random_sleep_habits_dataset.csv"")
+
+#explore dataset
+head(data)
+summary(data)
+
+#group by Hours_Slept, Productivity_Level, and Well_Being_Score
+average_data <- data %>%
+        group_by(Sleep_Preference) %>%
+        summarise(
+                average_hours_slept = mean(Hours_Slept, na.rm = TRUE),
+                average_productivity = mean(Productivity_Level, na.rm = TRUE),
+                average_wellbeing = mean(Well_Being_Score, na.rm = TRUE),
+                )
+print(average_data)
+
+#average hours slept for each group
+average_hours_slept_group <- aggregate(Hours_Slept ~ Sleep_Preference, data, mean)
+
+#create bar plot
+ggplot(average_hours_slept_group, aes(x=Sleep_Preference, y=Hours_Slept, fill=Sleep_Preference))+
+        geom_bar(stats = ""identity"") +
+        labs(title = ""Average Hours Slept by Sleep Preference"", y = ""Average Hours Slept"", x = ""Sleep Preference"")
+
+#t-test for productivity
+t_test_productivity <- t.test(Productivity_Level ~ Sleep_Preference, data=data)
+t_test_wellbeing <- t.test(Well_Being_Score ~ Sleep_Preference, data=data)
+
+#display
+print(t_test_productivity)
+print(t_test_wellbeing)"
+"#import library
+library(ggplot2)
+library(dplyr)
+
+#import raw data
+data = read.csv(""custom_gpt_file_path"")
+
+#explore
+head(data,5)
+summary(data)
+str(data)
+
+#scatter plot Training Hours vs Accuracy
+ggplot(data, aes(x=Training_Hours, y=Accuracy)) +
+        geom_point() +
+        geom_smooth(method=""lm"", se=FALSE) +
+        labs(title=""Training Hours vs Accuracy"",
+                x=""Training Hours"",
+                y=""Accuracy"")
+
+#group by model & summarize response time
+avg_response_time <- data %>%
+        group_by(Model_Version) %>%
+        summarise(Average_Response_Time = mean(Response_Time))
+
+#bar plot Model vs Average Response Time
+ggplot(avg_response_time, aes(x=Model_Version, y=Average_Response_Time)) +
+        geom_bar(stat=""identity"") +
+        labs(title=""Model vs Average Response Time"",
+                x=""Model Version"",
+                y=""Response Time"")
+
+#Accuracy summary
+accuracy_summary <- data %>%
+        group_by(Model_Version) %>%
+        summarise(
+                mean_accuracy = mean(accuracy, na.rm = TRUE),
+                std_accuracy = sd(accuracy, na.rm = TRUE),
+                min_accuracy = min(accuracy, na.rm = TRUE),
+                max_accuracy = max(accuracy, na.rm = TRUE)
+                )
+
+#display stats
+print(accuracy_summary)"
+"library(ggplot2)
+library(sf)
+library(ggmap)
+
+data <- read.csv(""Seattle's Coffee Shop file path"")
+
+#explore
+head(data)
+summary(data)
+str(data)
+
+#get the map
+map <- get_stamenmap(bbox = c(left = min(data$Longitude),
+                                right = max(data$Longitude),
+                                bottom = min(data$Latitude),
+                                top = max(data$Latitude)),
+                        maptype = ""toner_lite"", zoom = 12)
+
+#plot the map
+ggmap(map) +
+        geom_point(data=data, aes(x=Longitude, y=Latitude),
+                color=""blue"", size=2, alpha=0.6) +
+        labs(title=""Seattle Coffee Map"",
+                y=""Latitude"", x=""Longitude"")
+
+#plot density
+ggmap(map) +
+        geom_density2d(data=data, aes(x=Longitude, y=Latitude), size = 0.3) +
+        stat_density2d(data=data, aes(x=Longitude, y=Latitude), fill = ..level..,
+                geom = ""polygon"", alpha = 0.3) +
+        scale_fill_viridis_c() +
+        labs(title=""Seattle Coffee Map Density"",
+                x=""Longitude"", y=""Latitude"")
+
+#Relationship between Review Count and Rating
+        ggplot(data=data, aes(x=Review_Count, y=Rating)) +
+                geom_point(alpha=0.6) +
+                geom_smooth(method=""lm"", se=False) +
+        labs(title=""Relationship between Review Count & Ratings"",
+                x=""Review_Count"", y=""Rating"")
+
+#Top Rated Coffee Shops
+top_rated_shops <- data %>%
+        arrange(desc(Rating), desc(Review_Count)) %>%
+        slice_max(order_by = Rating, n = 10)
+
+print(top_rated_shops)
+
+#count no of coffee shops per price
+price_distribution <- data %>%
+        group_by(Price_Range) %>%
+        summarise(count=n())
+
+#plot count vs price range
+        ggplot(data=price_distribution, aes(x=Price_Range, y=count) +
+                geom_bar(stat=""identity"") +
+        labs(title=""Relationship between Shop Count & Price Range"",
+                x=""Price_Range"", y=""Count"")+
+        theme_minimal()
+
+#Correlation between Price Range & Customer Rating
+data$Price_Range_Num <- as.numeric(factor(data$Price_Range))
+
+#plot rating vs price range
+        ggplot(data=data, aes(x=Price_Range_Num, y=Rating) +
+                geom_point(alpha=0.7) +
+                geom_smooth(method=""lm"", se=False) +
+        labs(title=""Relationship between Rating & Price Range"",
+                x=""Price Ranges"", y=""Rating"")+
+        theme_minimal()
+#get correlation
+correlation <- cor(data$Price_Range_Num, data$Rating, use=""complete.obs"")
+print(paste(""Correlation: "", correlation))
+
+#leaflet map
+leaflet_map <- leaflet(data) %>%
+        addTiles() %>%
+        addMarkers(
+                lng = ~Longitude,
+                lat = ~Latitude,
+                popup = ~paste(Shop_Name, ""<br>"", ""Rating: "", Rating, ""<br>"", ""Review Count: "", Review_Count),
+                label = ~Shop_Name)
+#display leaflet map
+leaflet_map"
+
+"library(dplyr)
+library(ggplot2)
+
+#import data
+data <- read.csv(""raw_data_file_path.csv"")
+
+#explore
+head(data,5)
+summary(data)
+str(data)
+
+#box office by release year
+box_office_by_release_year <- data %>%
+        group_by(release_year) %>%
+        summarise(avg_gross_worldwide_box_office_earnings = mean(gross_worldwide_box_office_earnings), na.rm = TRUE)
+
+
+#filter
+movies_in_a_decade <- filter(data, release_year>=2000, release_year<=2010)
+
+#get average box office
+avg_box_office_of_movies_in_a_decade <- summarise(movies_in_a_decade, avg_box_office = mean(gross_worldwide_box_office_earnings), na.rm = TRUE)
+
+#display
+print(avg_box_office_of_movies_in_a_decade)
+
+#get number of movies per year
+no_movies_per_year <- data %>%
+        group_by(release_year) %>%
+        summarise(no_movies = n())
+
+#barplot
+ggplot(no_movies_per_year, aes(x=release_year, y=no_movies)) +
+        geom_col() +
+        labs(title=""Number of Movies per Year"",
+                x=""Release Year"",
+                y=""No of movies"")
+
+#filter genres
+two_genres <- filter(data, genre %in% c(""Action"", ""Comedy""))
+
+#get number of 2 genres
+two_genres_no_movies <- two_genres %>%
+        group_by(genre) %>%
+        summarise(no_movies = n())
+
+#display comparison
+print(two_genres_no_movies)
+
+#get avg box office of directors
+directors_by_avg_box_office <- data %>%
+        group_by(director) %>%
+        summarise(avg_gross_worldwide_box_office_earnings = mean(gross_worldwide_box_office_earnings), na.rm = TRUE)
+
+#get top 3
+top_3_directors <- arrange(directors_by_avg_box_office, desc(avg_gross_worldwide_box_office_earnings)) %>%
+        slice_head(n=3)
+
+#display top 3
+print(top_3_directors$director)"
+"data(mtcars)
+head(mtcars,6)
+dim(mtcars)
+
+print(mean(mtcars$mpg))
+print(mtcars[which.max(mtcars$hp), ""model""])
+
+cars_6cyl = subset(mtcars, cyl == 6)
+
+print(mean(cars_6cyl$wt))
+
+plot(mtcars$mpg, mtcars$hp, xlab = ""Miles per Gallon"", ylab = ""Horsepower"", main = ""Scatter plot Miles per Gallon vs Horsepower"")"
+"library(dplyr)
+library(ggplot2)
+library(tidyr)
+
+#load dataset
+data <- read.csv(""chinese_new_year.csv"")
+
+#inspect first rows
+print(head(data))
+print(summary(data))
+
+#check missing values
+print(colSums(is.na(data)))
+
+#remove null
+data <- na.omit(data)
+
+#convert year
+data$year <- as.numeric(data$year)
+
+#avg number of participants
+avg_participants <- mean(data$participants, na.rm=TRUE)
+cat(""Average number of participants: "", avg_participants)
+
+#most common activities
+most_common_activities_list <- data %>%
+    separate_rows(activities, sep="","") %>%
+    mutate(activities = trimws(activities))
+
+#frequency
+most_common_activities <- most_common_activities_list %>%
+    group_by(activities) %>%
+    summarise(freq = n()) %>%
+    arrange(desc(freq))
+
+#display most common activity
+cat(""The most common activity is "", most_common_activities$activities[1])
+
+#events per city
+events_per_city <- data %>%
+    group_by(city) %>%
+    summarise(no_events = n()) %>%
+    arrange(desc(no_events))
+
+#city with the most events
+cat(""The city that hosted the maximum number of events is "", events_per_city$city[1])
+
+#bar plot of no of events per city
+ggplot(data = events_per_city, aes(x = city, y = no_events)) +
+    geom_bar(stat = ""identity"") +
+    theme_minimal() +
+    labs(title = ""Bar graph of the number of events per city"", x = ""City"", y = ""Number of events"")"
+"library(dplyr)
+library(ggplot2)
+
+#Data Loading and Inspection
+data <- read.csv(""dopamine_levels.csv"")
+print(head(data))
+
+#Data Summary
+avg_dopamine <- mean(data$avg_dopamine_level, na.rm=TRUE)
+unique_activities <- data %>%
+    summarise(count = n_distinct(activity_name))
+cat(""Average dopamine levels: "", avg_dopamine, ""\n"")
+cat(""Number of unique activities: "", unique_activities$count)
+
+#Activity Analysis
+cat(""Highest average dopamine levels: "", data[which.max(data$avg_dopamine_level),c(""activity_name"",""avg_dopamine_level"")], ""\n"")
+cat(""Lowest average dopamine levels: "", data[which.min(data$avg_dopamine_level),c(""activity_name"",""avg_dopamine_level"")], ""\n"")
+
+#Visualization
+ggplot(data=data, aes(x=activity_name, y=avg_dopamine_level)) +
+    geom_bar(stat=""identity"") +
+    theme_minimal() +
+    labs(title=""Bar graph of the Average Dopamine Levels per Activity"", x=""Activities"", y=""Dopamine Levels"")"
+"#import libraries
+library(dplyr)
+library(ggplot2)
+
+#Data Loading and Inspection
+data <- read.csv(""coffee_sales.csv"")
+print(head(data))
+print(summary(data))
+
+#Data Cleaning
+print(colSums(is.na(data)))
+data <- na.omit(data)
+data$Date <- as.Date(data$Date, ""%m/%d/%Y"")
+
+#calculate price
+data$Price <- data$Quantity * data$Price_per_Unit
+
+#Sales Analysis
+tot_revenue_per_product <- data %>%
+    group_by(Product) %>%
+    summarise(Tot_Price = sum(Price))
+avg_quantity_per_product <- data %>%
+    group_by(Product) %>%
+    summarise(Avg_Quantity = mean(Quantity))
+
+#Location Analysis
+tot_sales_per_location <- data %>%
+    group_by(Location) %>%
+    summarise(Tot_Price = sum(Price))
+avg_price_per_unit_per_location <- data %>%
+    group_by(Location) %>%
+    summarise(Avg_Price_per_Unit = mean(Price_per_Unit))
+
+#Visualization
+ggplot(data=tot_revenue_per_product, aes(x=Product, y=Tot_Price)) +
+    geom_bar(stat=""identity"") +
+    theme_minimal() +
+    labs(title = ""Bar Plot of Total Revenue for each Product"", x = ""Products"", y = ""Total Revenue"")
+
+#Daily Sales
+daily_sales <- data %>%
+    group_by(Date) %>%
+    summarise(Tot_Price = sum(Price))
+
+ggplot(data=daily_sales, aes(x=Date, y=Tot_Price)) +
+    geom_line() +
+    theme_minimal() +
+    labs(title = ""Line Graph of Daily Sales over Time"", x = ""Date"", y = ""Daily Sales"")"
+"library(dplyr)
+library(ggplot2)
+library(lubridate)
+
+#Data Loading and Inspection
+data <- read.csv(""stock_data.csv"")
+print(head(data))
+print(summary(data))
+
+#Data Preparation
+print(colSums(is.na(data)))
+data <- na.omit(data)
+data$Date <- as.Date(data$Date, ""%m/%d/%Y"")
+
+#Trend Analysis
+#get month from date
+data$Month <- floor_date(data$Date, ""month"")
+#group by company to get average closing price
+avg_closing_prices <- data %>%
+    group_by(Company, Month) %>%
+    summarise(avg_closing_price = mean(Closing_Price))
+
+#get overall averages
+overall_avg_closing_prices <- avg_closing_prices %>%
+    group_by(Company) %>%
+    summarise(start_price = first(avg_closing_price), end_price = last(avg_closing_price)) %>%
+    mutate(price_diff = end_price - start_price)
+
+#display monthly averages for each company
+print(""Monthly average closing price: "")
+print(avg_closing_prices)
+#display highest increase
+print(""Highest increase in average: "")
+print(overall_avg_closing_prices[which.max(overall_avg_closing_prices$price_diff),])
+
+#Volume Analysis
+#group company & month by volumne
+highest_trading_volumes_per_company <- data %>%
+    group_by(Company, Month) %>%
+    summarise(Max_Volume = max(Volume)) %>%
+    arrange(desc(Max_Volume))
+
+#get first occurence
+highest_trading_volumes_per_company <- highest_trading_volumes_per_company %>%
+    group_by(Company) %>%
+    slice(1) %>%
+    ungroup()
+
+#get unique companies
+companies <- unique(data$Company)
+
+#put into a data frame
+correlations <- data.frame(Company = character(), Correlation = numeric(), stringsAsFactors = FALSE)
+
+#loop and filter company
+for(company in companies){
+    company_data <- data %>%
+        filter(Company == company)
+    #get correlation
+    correlation <- cor(company_data$Closing_Price, company_data$Volume, use = ""complete.obs"")
+    correlations <- rbind(correlations, data.frame(Company = company, Correlation = correlation))
+}
+
+print(correlations)"
