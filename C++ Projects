@@ -1,0 +1,774 @@
+"#include <stdio.h>
+
+int main(){
+        int choice;
+        float price = 0.0;
+        char extras;
+
+        //Display Menu
+        printf(""Welcome to Starbucks! Choose what drinks you like:\n"");
+        printf(""1. White Mocha - P200\n"");
+        printf(""2. Dark Caramel - P150\n"");
+        printf(""3. Java Chip - P220\n"");
+
+        //Get response
+        printf(""Please select the drink by inputting the corresponding number: "");
+        scanf(""%d"", &choice);
+
+
+        switch (choice) {
+                case 1:
+                        price = 200;
+                        break;
+                case 2:
+                        price = 150;
+                        break;
+                case 3:
+                        price = 220;
+                        break;
+                default:
+                        printf(""Invalid input. Please select one of the choices above."");
+                        return 1;
+                }
+
+        //ask if they want whip cream
+        printf(""With whip cream for an extra P10? (y/n): "");
+        scanf("" %c"", &extras);
+
+        //determine whether to add an extra 10 for whip cream
+        if (extras == 'y' || extras == 'Y'){
+                price += 10;
+                }
+
+        //print total
+        printf(""Your total is P%.2f\n"", price);
+        return 0;
+        }"
+"#include <stdio.h>
+#include <string.h>
+
+
+
+int main(){
+char name[100];
+
+printf(""Who is Batman's secret identity?\n"");
+fgets(name, sizeof(name), stdin);
+
+name[strcspn(name, ""\n"")] = 0;
+
+if (strcmp(name, ""Bruce Wayne"") == 0 || strcmp(name, ""bruce wayne"") == 0) {
+        printf(""Correct! Don't tell anyone!"");
+
+        }
+else {
+        printf(""Wrong! Batman's identity remains a mystery."");
+        }
+
+return 0;
+}"
+"#include <stdio.h>
+
+int main() {
+        int targetHours;
+        int dailyHours;
+
+        printf(""Good morning Andre, how many hours would you like to dedicate to reading?"");
+        scanf(""%d"", &targetHours);
+
+        printf(""Good evening Andre, please input the number of hours you dedicated to reading today: "");
+        scanf(""%d"", &dailyHours);
+
+
+        if (dailyHours >= targetHours){
+                printf(""Well done! You've achieved your goal for the day!"");
+                }
+        else {
+                printf(""Keep pushing! Try to achieve your goal tomorrow."");
+                }
+        return 0;
+        }"
+"#include <stdio.h>
+
+int main() {
+        int targetHours;
+        int dailyHours;
+        int totalHours=0;
+
+        printf(""Good morning Andre, how many hours would you like to dedicate to reading this week? "");
+        scanf(""%d"", &targetHours);
+
+
+        for (int days=0; days < 7; days++) {
+                printf(""Good evening Andre, please input the number of hours you dedicated to reading today: "");
+                scanf(""%d"", &dailyHours);
+                totalHours += dailyHours;
+                }
+
+        if (totalHours >= targetHours){
+                printf(""Well done! You've achieved your goal for the week!"");
+                }
+        else {
+                printf(""Keep pushing! Try to achieve your goal next week."");
+                }
+        return 0;
+        }"
+
+"#include <iostream>
+#include <cstring>
+
+int main() {
+        std::string InputString;
+
+        std::cout << ""Enter a string to be reversed: "";
+        std::getline(std::cin, InputString);
+
+        for (int i = InputString.length()-1; i>=0; i--) {
+                std::cout << InputString[i];
+                }
+
+        std::cout << std::endl;
+        return 0;
+        }
+
+"
+"//C++ Equivalent
+#include <iostream>
+#include <string>
+
+int main(){
+        //initialize language string object
+        std::string language;
+
+        //ask user
+        std::cout ""Enter your favorite programming language: "";
+        
+        //get user's response and store it in the language string object
+        std::getline (std::cin, language);
+
+        //output with user's respionse
+        std::cout << ""Ah, "" << language <<  ""! That's a great choice for programming!"" << std::endl;
+        return 0;
+        }"
+"//C++ Equivalent
+#include <iostream>
+
+int main() {
+        int CUPS;
+
+        std::cout << ""How many cups of coffee have you had today? "";
+        std::cin >> CUPS;
+
+        if (CUPS>3) {
+                std::cout << ""Be careful! It's recommended not to exceed 3 cups of coffee a day."";
+                }
+        else {
+                std::cout << ""You're within the recommended coffee consumption limit. Enjoy!"";
+                }
+        return 0;        
+        }"
+"//C++ Equivalent
+#include <iostream>
+#include <string>
+
+std::string stutter(const std::string& text){
+        if (text.length()>=2){
+                return text.substr(0,2) + text;
+                }
+        else{
+                return ""Text is too short to stutter."";
+                }
+        }
+
+int main(){
+        std::string text;
+        
+        std::cout << ""Enter a piece of text: "";
+        std::getline(std::cin, text);
+        std::cout << stutter(text) << std::endl;
+        
+        return 0;
+        }"
+"#include <iostream>
+#include <vector>
+#include <cstdlib>
+
+int main(){
+        //create array for meetings
+        std::vector<int> meetings(30);
+        
+        //randomly assign meetings in a month
+        for(int i = 0; i < 30; i++){
+                //assign 0-5 meetings per day
+                meetings[i] = rand()%6;
+                }
+
+        //Display meetings for the month:
+        std::cout << ""Meetings for the month:\n"";
+        for(int i = 0; i < 30; i++){
+                std::cout << ""Day "" << (i + 1) << "": "" << meetings[i] << "" meetings\n"";
+                }
+
+        //Ask user when the start of the 1 week vacation
+        std::cout << ""Enter the start day of your 1-week vacation (1-30): "";
+        //get userinput startdate
+        int startdate;
+        std::cin >> startdate;
+
+        //Input validation
+        while(1 > startdate || startdate > 24){
+                std::cout << ""Invalid startdate. Try again. Input a day within from the first and 24th day"";
+                std::cin >> startdate;
+                }
+
+        //define tot_meetings
+        int tot_meetings = 0;
+        //loop through months and get total days
+        for(int i = startdate - 1; i < startdate + 6; i++){
+                tot_meetings += meetings[i];
+                }
+
+        //print total meetings missed
+        std::cout << ""You would miss a total of "" << tot_meetings << "" meetings during your vacation.\n"";
+        }"
+"#include <iostream>
+#include <string>
+#include <vector>
+
+int main(){
+        //initialize vector array & total_free_hours variable
+        std::vector <int> week(7);
+        int total_free_hours = 0;        
+
+        //prompt use for number of hours busy
+        std::cout << ""Enter the number of hours you're busy each day during the holiday week:\n"" ;
+        //loop 7 times for 7 days in a week
+        for(int i=1; i<=7; i++){
+                //display current day
+                std::cout << ""Day "" << i << "": "" ;
+                //get user input for the day
+                std::cin >> week[i-1];
+                //add free hours for the day into the vector
+                total_free_hours += 24 - week[i-1];
+                }
+
+        //output total free hours in a week
+        std::cout << ""Total free hours during the holiday week: "" << total_free_hours << "" hours"";
+        return 0;
+        }"
+"#include <iostream>
+#include <string>
+#include <vector>
+
+//create Gift with its properties
+struct Gift{
+        std::string recipient;
+        std::string description;
+        float cost;
+        }
+
+int main(){
+        //initialize choice, Giftlist, & choice 3 to-check recipient name
+        int choice = 0;
+        std::vector <Gift> Giftlist;
+        std::string choice3_recipient;
+        std::string choice4_recipient;
+        std::string str_cost;
+        int choice3_exists = 0;
+        int choice4_exists = 0;
+
+        //output interface
+        std::cout << ""Holiday Gift List Manager\n"";
+        std::cout << ""1. Add a new gift\n"";
+        std::cout << ""2. View the entire gift list\n"";
+        std::cout << ""3. Search by recipient's name\n"";
+        std::cout << ""4. Delete a gift\n"";
+        std::cout << ""5. Exit\n"";
+
+        //loop while choice is not 5
+        while(choice!=5){
+                //initialize new gift
+                Gift newGift;
+
+                //prompt user choice
+                std::cout << ""Choice: "";
+                std::cin >> choice;
+                //clear input buffer
+                std::cin.ignore();
+
+                //if choice is 1 do these
+                if (choice == 1){
+                        //get recipient's name
+                        std::cout << ""Enter recipient's name: "";
+                        std::getline(std::cin, newGift.recipient);
+
+                        //get description
+                        std::cout << ""Enter gift description: "";
+                        std::getline(std::cin, newGift.description);
+
+                        //get cost
+                        std::cout << ""Enter estimated cost: "";
+                        std::getline(std::cin, str_cost);
+                        //convert string to float & store it as float for gift cost
+                        newGift.cost = std::stof(str_cost);
+
+                        //add new gift to gift list
+                        Giftlist.push_back(newGift);
+
+                        //notify user
+                        std::cout << ""Gift added! Total gifts in the list: "" << Giftlist.size() << ""\n"";
+                        }
+        
+                //if choice is 2 do these
+                else if (choice == 2){
+                        //loop through all items in Giftlist
+                        for(int i=0; i<Giftlist.size(); i++){
+                                //display details for the current gift
+                                std::cout << ""Recipient: "" << Giftlist[i].recipient << "", Gift: "" << Giftlist[i].description << "", Cost: $"" << Giftlist[i].cost << ""\n"";
+                                }
+
+                        }
+
+                //if choice is 3 do these
+                else if (choice == 3){
+                        //prompt recipient's name
+                        std::cout << ""Enter recipient's name: "";
+                        std::getline(std::cin, choice3_recipient);
+
+                        //loop through all items in Giftlist & get user-input recipient details
+                        for(int i=0; i<Giftlist.size(); i++){
+                                //if user-input recipient is equal to the current gift then display details
+                                if (choice3_recipient == Giftlist[i].recipient){
+                                        //display details
+                                        std::cout << ""Recipient: "" << Giftlist[i].recipient << "", Gift: "" << Giftlist[i].description << "", Cost: $"" << Giftlist[i].cost << ""\n"";
+                                        
+                                        //set choice3_exists variable to 1 indicating user-input recipient name exists
+                                        choice3_exists = 1;
+                                        
+                                        //exit loop once recipient details are displayed
+                                        break;
+                                        }
+                                }
+
+                        //check if user-input recipient name exists
+                        if (choice3_exists == 0){
+                                //prompt recipient doesnt exist
+                                std::cout << ""Recipient name doesn't exist."";
+                                }
+                        
+                        //reset choice3_exists
+                        choice3_exists = 0;
+                        }
+                else if (choice == 4){
+                        //prompt recipient's name
+                        std::cout << ""Enter recipient's name to delete: "";
+                        std::getline(std::cin, choice4_recipient);
+
+                        //loop through all items in Giftlist & get user-input recipient details
+                        for(int i=0; i<Giftlist.size(); i++){
+                                //if user-input recipient is equal to the current gift then display details
+                                if (choice4_recipient == Giftlist[i].recipient){
+                                        //display details
+                                        Giftlist.erase(Giftlist.begin() + i);
+                                        
+                                        //Prompt user gift has been deleted
+                                        std::cout << ""Gift has been deleted."" << std::endl;
+                                                
+                                        //set choice4_exists variable to 1 indicating user-input recipient name exists
+                                        choice4_exists = 1;
+
+                                        //exit loop once recipient is deleted
+                                        break;
+                                        }
+                                }
+
+                        //check if user-input recipient name exists
+                        if (choice4_exists == 0){
+                                //prompt recipient doesnt exist
+                                std::cout << ""Recipient name doesn't exist."";
+                                }
+                        
+                        //reset choice4_exists
+                        choice4_exists = 0;
+                        }
+
+                        }
+        
+                //Pause for user experience
+                std::cout << ""\nPress enter to continue..."";
+                std::cin.get();
+                }
+        //Thank user & end program
+        std::cout << ""Thank you for using the Holiday Gift List Manager!""  << std::endl;
+        }"
+"#include <iostream>
+#include <string>
+#include <vector>
+
+int main(){
+        //set variables
+        std::string DateToday, Bday;
+        int cDay, cMonth, cYear, bDay, bMonth, bYear;
+        int DaysLeft;
+        std::vector<std::string> taskList;
+        std::string task, inputdate;
+        std::vector<std::string> dateList;
+
+        //output intro
+        std::cout << ""Welcome to the Birthday Celebration Planner!\n"";
+
+        //get today's date
+        std::cout << ""Please enter today's date (DD/MM/YYYY): "";
+        std::getline(std::cin, DateToday);
+
+        //get mom bdate
+        std::cout << ""Please enter mom's birthday (DD/MM/YYYY): "";
+        std::getline(std::cin, Bday);
+
+        //convert to date type
+        cDay = std::stoi(DateToday.substr(0,2));
+        cMonth = std::stoi(DateToday.substr(3,2));
+        cYear = std::stoi(DateToday.substr(6,4));
+        bDay = std::stoi(Bday.substr(0,2));
+        bMonth = std::stoi(Bday.substr(3,2));
+        bYear = std::stoi(Bday.substr(6,4));
+
+        //calculate remaining days
+        DaysLeft = (bMonth-cMonth)*30 + (bDay-cDay);
+
+        //prompt how many days left
+        std::cout << ""Countdown: "" << DaysLeft << "" days left until your mom's 60th birthday!\n"";
+
+        //5 tasks
+        std::cout << ""Please enter the tasks for the birthday preparation.\nYou can enter up to 5 tasks.\n"";
+
+        //get tasks
+        for(int i = 1; i<=5; i++){
+                std::cout << ""Task "" << i << "": "";
+                std::getline(std::cin, task);
+                std::cout << ""Due date for Task "" << i << "" (DD/MM/YYYY): "";
+                std::getline(std::cin, inputdate);
+
+                taskList.push_back(task);
+                dateList.push_back(inputdate);
+                }
+        
+
+        //display tasks
+        std::cout << ""Task Summary:\n"";
+        for(int i = 0; i<5; i++){
+                std::cout << i << "": "" << taskList[i] << "" - Due: "" << dateList[i] << ""\n"";
+                }
+
+        std::cout << ""All tasks are scheduled appropriately. Keep up with the preparations for a wonderful celebration!"" << std::endl;
+        return 0;
+        }"
+"#include <iostream>
+#include <string>
+#include <vector>
+
+int main(){
+        std::string job_title;
+        int passion_rating;
+        int growth_rating;
+        std::vector <std::string> skill(3);
+        std::vector <std::string> description(3);
+        std::cin.ignore();
+
+        //get job title
+        std::cout << ""Welcome to the Career Path Analyzer!\nPlease enter your current job title: "";
+        std::getline(std::cin, job_title);
+
+        //get passion rating
+        std::cout << ""Rate your job in terms of passion on a scale from 1 to 10: "";
+        std::cin >> passion_rating;
+        std::cin.ignore();
+
+        //get growth rating
+        std::cout << ""Rate your job in terms of growth on a scale from 1 to 10: "";
+        std::cin >> growth_rating;
+        std::cin.ignore();
+
+        std::cout << ""List up to three skills or areas you have grown in or are passionate about in your current job.""
+
+        for (int i = 0; i<3; i++){
+                std::cout << ""Skill/Area "" << i + 1 << "": "";
+                std::getline(std::cin, skill[i]);
+                std::cout << ""Description: "";
+                std::getline(std::cin, description[i]);
+                }
+        
+        std::cout << ""Career Path Summary:\nJob Title: "" << job_title << ""\nPassion Rating: "" << passion_rating << ""\nGrowth Rating: "" << growth_rating;
+
+        std::cout << ""\nSkills/Areas of Growth and Passion:\n"";
+
+        for (int i = 0; i<3; i++){
+                std::cout << i + 1 << "". "" << skill[i] << "" - "" << description[i] << ""\n"";
+                }
+
+        if ((passion_rating + growth_rating)>=14){
+                std::cout << ""Analysis:\nYour current job seems to align well with your passion and growth goals!"";
+                }
+        else{
+                std::cout << ""Analysis:\nYou might want to explore opportunities that align more closely with your passion and growth aspirations.""
+                }
+
+        }
+"
+
+"#include <iostream>
+#include <string>
+#include <vector>
+
+void option_1(std::vector<std::string>& name_list, std::vector<std::string>& location_list, std::vector<int>& rating_list){
+        int rating; 
+        std::string name, location;
+        std::cout << ""Enter the name of the coffee shop: "";
+        std::getline(std::cin, name);
+
+        std::cout << ""Enter the location of the coffee shop: "";
+        std::getline(std::cin, location);
+
+        std::cout << ""Enter the rating of the coffee shop (1 to 5): "";
+        std::cin >> rating;
+        std::cin.ignore();
+
+        name_list.push_back(name);
+        location_list.push_back(location);
+        rating_list.push_back(rating);
+
+        std::cout << ""Coffee shop added successfully!\n"";
+        }
+
+void option_2(std::vector<std::string> name_list2, std::vector<std::string> date_list, std::vector<int> duration_list, std::vector<std::string> subject_list, std::vector<std::string> notes_list){
+        std::string name, study_date, subject, notes;
+        int duration;
+
+        std::cout << ""Enter the coffee shop name for the study session: "";
+        std::getline(std::cin, name);
+
+        std::cout << ""Enter the date (YYYY-MM-DD): "";
+        std::getline(std::cin, study_date);
+
+        std::cout << ""Enter the duration in hours: "";
+        std::cin >> duration;
+        std::cin.ignore();
+
+        std::cout << ""Enter the subject of study: "";
+        std::getline(std::cin, subject);
+
+        std::cout << ""Any notes (optional): "";
+        std::getline(std::cin, notes);
+
+        name_list2.push_back(name);
+        date_list.push_back(study_date);
+        duration_list.push_back(duration);
+        subject_list.push_back(subject);
+        notes_list.push_back(notes);
+
+        std::cout << ""Study session recorded successfully!\n"";
+        }
+
+void option_3(std::vector<std::string> name_list2, std::vector<int> duration_list){
+        std::string name;
+        int name_exists = 0;
+
+        while (name_exists==0){
+                std::cout << ""Enter the name of the coffee shop: "";
+                std::getline(std::cin, name);
+
+                for (int i=0; i++; i<length(name_list2)){
+                        if (name==name_list2[i]){
+                                name_exists=1;
+                                std::cout << ""Total study hours at JavaBeans: "" << duration_list[i] << "" hours\n"";
+                                }
+                        }
+                if (name_exists==1){
+                        std::cout << ""Coffee shop doesn't exist. Try again\n"";
+                        }
+
+                }
+        }
+
+int main(){
+        std::cout << ""Welcome to the Coffee Shop Study Session Tracker!"";
+        int option = 0, rating;
+        std::string name, location;
+        std::vector<std::string> name_list, location_list;
+        std::vector<int> rating_list;
+
+        std::vector<std::string> name_list2, date_list, subject_list, notes_list;
+        std::vector<int> duration_list;        
+
+        while (option!=6){
+                std::cout << ""Please select an option:\n1. Add a New Coffee Shop\n2. Record a New Study Session\n3. View Total Study Hours in a Coffee Shop\n4. Find Highest-Rated Coffee Shop\n5. Display All Study Sessions for a Subject\n6. Exit\n"";
+
+                std::cout << ""Your choice: "";
+                std::cin >> option;
+                std::cin.ignore();
+
+                if (option==1){
+                        option_1(name_list, location_list, rating_list);
+                        }
+
+                if (option==2){
+                        option_2(name_list2, date_list, duration_list, subject_list, notes_list);
+                        }
+
+                if (option==3){
+                        option_3(name_list, location_list, rating_list);
+                        }
+                }
+
+        std::cout << ""Exiting the program. Goodbye!\n"" << std::endl;
+        
+        }"
+"//import libraries
+#include <iostream>
+#include <string>
+#include <map>
+
+//define laptop variables
+struct Laptop {
+    std::string brand;
+    std::string displaySize;
+    float price;
+};
+
+//main function
+int main(){
+    //initialize some test data
+    Laptop laptops[] = {
+        {""Dell"", ""15\"""", 500},
+        {""HP"", ""13\"""", 450},
+        };
+
+    //establish initial minimum price, declare current price, get number of laptops from test data, define a map
+    float min_price = laptops[0].price;
+    float current_price;
+    int num_laptops = sizeof(laptops)/sizeof(laptops[0]);
+    std::map< std::string, std::pair<float, int>> BrandPrices;
+
+    //loop through each laptop iteration
+    for (int i=0;i<num_laptops;i++){
+        //get current price of the current laptop
+        current_price = laptops[i].price;
+
+        //if current price is lower than minimum then update minimum price
+        if (min_price>current_price){
+            min_price = current_price;
+        }
+
+        //add current price to the total price of the certain laptop brand
+        BrandPrices[laptops[i].brand].first += laptops[i].price;
+
+        //increment the total count per laptop brand
+        BrandPrices[laptops[i].brand].second += 1;
+
+    }
+
+    //display minimum price
+    std::cout << ""Cheapest Laptop: "" << min_price << std::endl;
+
+    //to display average prices per brand
+    std::cout << ""Average Prices per Brand"" << std::endl;
+
+    //iterate each brand
+    for(const auto& brand: BrandPrices){
+        //calculate average price per brand
+        float avgPrice = brand.second.first / brand.second.second;
+        //display average prices
+        std::cout << brand.first << "": $"" << avgPrice << std::endl;
+    }
+    return 0;
+}"
+"#include <iostream>
+#include <string>
+#include <vector>
+
+
+struct Workout {
+    std::string name;
+    std::string type;
+    int duration;
+};
+
+Workout workouts[] = {
+    {""HIIT"", ""cardio"", 10},
+    {""Quick Cardio Blast"", ""cardio"", 20},
+    {""Strength Training Session"", ""strength"", 45},
+    {""Bodybuilding"", ""strength"", 30},
+    {""Yoga"", ""flexibility"", 15}
+};
+
+
+
+void getWorkout(int mins_available, std::string workout_type){
+    std::cout << ""Workout Suggestions:"" << std::endl;
+    int no_workouts = sizeof(workouts)/sizeof(workouts[0]);
+    bool found = false;
+
+    for(int i=0; i<no_workouts; i++){
+        if (workouts[i].type == workout_type && workouts[i].duration<=mins_available){
+            std::cout << i+1 << "". "" << workouts[i].name << "" - Duration: "" << workouts[i].duration << "" minutes"" << std::endl;
+            found = true;
+        } 
+    }
+
+    if (!found){
+        std::cout << ""No workouts match your criteria. Consider adjusting your available time or workout preference."" << std::endl;
+    }
+}
+
+
+int main(){
+    int mins_available;
+    std::string workout_type;
+
+    std::cout << ""Welcome to the Late-Night Workout Planner!"" << std::endl;
+    
+    std::cout << ""Please enter how many minutes you have available for your workout: "" << std::endl;
+    std::cin >> mins_available;
+    std::cin.ignore();
+    
+    std::cout << ""What type of workout do you prefer? (cardio/strength/flexibility): "";
+    std::getline(std::cin, workout_type);
+
+    std::cout << ""Searching for workouts that match your criteria..."" << std::endl;
+
+    getWorkout(mins_available, workout_type);
+}"
+"#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <vector>
+#include <string>
+
+int main(){
+    std::vector<std::string> answers{
+        ""Yes"", ""Definitely"", ""Maybe"", ""Ask again later"", ""No"", ""Doubtful""
+    };
+
+
+
+    srand(static_cast<unsigned int>(time(0)));
+
+    std::string question, response;
+
+    std::cout << ""Welcome to the Magic 8-Ball Simulator!"" << std::endl;
+
+    do{
+        int randIndex = rand() % answers.size();
+
+        std::cout << ""Enter your yes-or-no question: "";
+        std::getline(std::cin, question);
+
+        std::cout << answers[randIndex] << std::endl;
+
+        std::cout << ""Do you want to ask another question? (y/n): "";
+
+        std::getline(std::cin, response);
+    }while(response!=""n"" && response!=""N"");
+
+    std::cout << ""Thank you for using the Magic 8-Ball Simulator. Goodbye!"" << std::endl;
+}"
