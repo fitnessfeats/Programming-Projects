@@ -1,0 +1,728 @@
+"//Pinnacle of Luxury:
+SELECT property_id,  address, price
+FROM Properties
+WHERE
+        floor_count > 20 AND
+        has_pool = 1 AND
+        has_city_view = 1
+
+//Affluent Owners: 
+WITH Owners_Property AS(
+        SELECT
+                CONCAT(o.first_name, ' ', o.last_name) AS full_name,
+                o.net_worth,
+                po.property_id
+        FROM Owners o
+        INNER JOIN Property_Owners po
+                ON o.owner_id = po.owner_id
+        ),
+all_data AS(
+        SELECT
+                op.full_name,
+                op.net_worth
+        FROM Owners_Property op
+        INNER JOIN Properties p
+                ON op.property_id = p.property_id
+        WHERE
+                p.floor_count > 20 AND
+                p.has_pool = TRUE
+        )
+SELECT DISTINCT
+        full_name,
+        net_worth
+FROM all_data
+ORDER BY net_worth DESC
+
+//Most Luxurious Cities
+SELECT
+        city,
+        AVG(price) AS average_price
+FROM Properties
+WHERE
+        has_city_view = TRUE
+GROUP BY city
+ORDER BY average_price DESC
+LIMIT 5
+
+
+//Recent Purchases by the Elite:
+WITH Property_Owner_4 AS(
+        SELECT
+                p.address,
+                po.purchase_date,
+                po.owner_id
+        FROM Properties p
+        INNER JOIN Property_Owners po
+                ON p.property_id = po.property_id
+        WHERE
+                p.has_city_view = TRUE
+                EXTRACT(YEAR FROM po.purchase_date) = 2022 
+        ),
+
+all_data_4 AS(
+        SELECT
+                op.address,
+                op.purchase_date,
+                CONCAT(o.first_name, ' ', o.last_name) AS full_name
+        FROM Property_Owner_4 op
+        INNER JOIN Owners o
+                ON op.owner_id = o.owner_id 
+        WHERE
+                o.net_worth > 10000000
+        )
+
+SELECT * FROM all_data_4
+
+//Prestige Index
+WITH get_scores AS(
+        SELECT
+                address,
+                CASE WHEN has_pool = TRUE THEN 1 ELSE 0 END AS pool_score,
+                CASE WHEN has_city_view = TRUE THEN 2 ELSE 0 END AS city_view_score,
+                floor_count / 10 AS floor_score,
+                price
+        FROM Properties
+        ),
+calculate_scores AS(
+        SELECT
+                address,
+                pool_score + city_view_score + floor_score AS prestige_index,
+                price
+        FROM get_scores
+        )
+
+SELECT
+        address,
+        prestige_index,
+        price
+FROM calculate_scores
+WHERE
+        prestige_index >= 4
+ORDER BY prestige_index DESC, price DESC
+"
+"--Early Birds Refined
+WITH first_comers_time_in AS(
+        SELECT DISTINCT
+                date
+                ,MIN(check_in_time) AS time_in
+        FROM Attendance
+        WHERE
+                date >= datediff('month', -1, date)
+        GROUP BY date
+        ORDER BY date ASC
+        )
+
+,first_comers AS(
+        SELECT
+                f.date
+                ,f.time_in
+                ,a.emp_id
+                , 1 AS first_comer_count
+        FROM first_comers_time_in f
+        LEFT JOIN Attendance a
+                ON f.date = a.date
+                AND f.time_in = a.check_in_time
+        ORDER BY date ASC
+        )
+
+,first_comer_tally AS(
+        SELECT
+                date
+                ,emp_id
+                ,SUM(first_comer_count) AS first_to_check_in_count
+        FROM first_comers
+        GROUP BY date, emp_id
+        ORDER BY date ASC
+        )
+
+,ranked_check_ins AS(
+        SELECT
+                date
+                ,emp_id
+                ,check_in_time
+                ,RANK() OVER(PARTITION BY date ORDER BY check_in_time) AS check_in_rank
+        FROM Attendance
+        )
+
+,time_difference AS(
+        SELECT
+                a1.date
+                ,a1.emp_id
+                ,a1.check_in_time AS first_check_in_time
+                ,a2.check_in_time AS second_check_in_time
+                ,TIMEDIFF(a2.check_in_time, a1.check_in_time) AS diff_check_in_time
+        FROM ranked_check_ins a1
+        LEFT JOIN ranked_check_ins a2
+                ON a1.date = a2.date AND a2.check_in_rank = 2
+        WHERE
+                a1.check_in_rank = 1
+        )
+
+
+SELECT DISTINCT
+        f.emp_id
+        ,CONCAT(e.first_name, ' ', e.last_name) AS full_name
+        ,e.position
+        ,f.first_to_check_in_count
+        ,td.diff_check_in_time
+FROM first_comer_tally f
+LEFT JOIN Employees e
+        ON f.emp_id = e.emp_id
+LEFT JOIN time_difference td
+        ON f.emp_id = td.emp_id
+WHERE
+        f.first_to_check_in_count >= 5
+
+
+--Leading by Example Enhanced
+WITH leader_arrival_before_8am AS(
+        SELECT
+                date
+                ,team
+                ,emp_id
+                ,1 AS arrival_8am
+        FROM attendance
+        WHERE
+                check_in_time < '08:00:00'
+                AND (position = 'Manager' OR position = 'Director')
+        )
+,leader_arrival_before_8am_tally AS(
+        SELECT
+                team
+                ,emp_id
+                ,SUM(arrival_8am) AS tally_8am_arrival
+                ,DENSE_RANK() OVER(PARTITION BY team ORDER BY SUM(arrival_8am) DESC) as rank
+        FROM leader_arrival_before_8am
+        GROUP BY team, emp_id
+        )
+
+SELECT * FROM leader_arrival_before_8am_tally
+WHERE rank = 1"
+"WITH businesses_buildings AS(
+        SELECT * FROM Buildings bldg
+        INNER JOIN Business bus
+                ON bus.BuildingID = bldg.BuildingID 
+        )
+
+,Yearly_Business_Growth AS(
+        SELECT
+                YEAR(bldg.YearBuilt) AS Year
+                ,COUNT(DISTINCT bus.BusinessID) AS No_Businesses
+                
+        FROM businesses_buildings
+        GROUP BY YEAR(bldg.YearBuilt)
+        )
+
+,Category_Businesses AS(
+        SELECT
+                Category
+                ,COUNT(DISTINCT BusinessID) AS No_Businesses
+        FROM businesses_buildings
+        GROUP BY Category
+        )
+,Residents_Growth AS(
+        SELECT
+                YEAR(MoveInDate) AS Year
+                ,COUNT(DISTINCT ResidentID) AS No_Residents
+        FROM Residents
+        GROUP BY YEAR(MoveInDate)        
+        ORDER BY YEAR(MoveInDate) ASC
+        )
+,Residents_Buildings AS(
+        SELECT * FROM Residents r
+        INNER JOIN Buildings b
+                ON r.BuildingID = b.BuildingID
+        )
+,Events_Buildings AS(
+        SELECT
+                b.Type
+                ,AVG(e.Attendance) AS avg_attendance
+                ,SUM(e.Attendance) AS tot_attendance
+                ,COUNT(e.EventID) AS number_of_events
+        FROM Events e
+        INNER JOIN Buildings b
+                ON e.BuildingID = b.BuildingID
+        GROUP BY b.Type
+        )
+
+
+
+
+SELECT * FROM Yearly_Business_Growth;
+SELECT * FROM Category_Businesses;
+SELECT DISTINCT
+        Type
+        ,AVG(Employees) AS average_employees
+FROM businesses_buildings bb
+GROUP BY Type;
+SELECT * FROM Residents_Growth;
+SELECT
+        Type
+        ,AVG(DATEDIFF(CURRENTDATE, MoveInDate)) avg_resident_duration
+FROM Residents_Buildings
+GROUP BY Type;
+SELECT
+        EventName
+        , Attendance
+FROM Events
+ORDER BY Attendance DESC;
+SELECT * FROM Events_Buildings;"
+"--Identify the most visited pages on the website
+SELECT 
+        page_id 
+        ,COUNT(page_id) AS Frequency
+FROM page_views
+GROUP BY page_id
+ORDER BY Frequency DESC;
+
+--Find the average session duration for each user type
+
+SELECT
+        u.user_type
+        ,AVG(TIMESTAMPDIFF(MINUTE, s.start_time, s.end_time)) AS session_duration
+FROM sessions s
+JOIN users u
+        ON s.user_id = u.user_id
+GROUP BY u.user_type;
+
+--Conversion Rate
+WITH session_order AS(
+        SELECT 
+                s.*
+                ,o.order_id 
+        FROM sessions s
+        LEFT JOIN orders o
+                ON s.user_id = o.user_id
+        )
+
+,users_orders AS(
+        SELECT 
+                DISTINCT user_id
+                ,CASE 
+                        WHEN order_id IS NULL THEN 0 
+                        ELSE 1 
+                END AS ordered
+        FROM session_order
+        )
+SELECT
+        SUM(ordered) * 1.0 / COUNT(user_id) AS conversion_rate
+FROM users_orders;
+
+--Identifying the top 5 products by page views and orders
+
+SELECT
+        p.product_id
+        ,p.name
+        ,SUM(oi.quantity) AS tot_quantity_ordered
+FROM products p
+LEFT JOIN order_items oi
+        ON p.product_id = oi.product_id
+GROUP BY product_id, name
+ORDER BY tot_quantity_ordered DESC
+LIMIT 5
+
+SELECT
+        p.product_id
+        ,p.name
+        ,COUNT(v.page_id) AS tot_views
+FROM products p
+LEFT JOIN page_views v
+        ON p.product_id = v.page_id
+GROUP BY product_id, name
+ORDER BY tot_views DESC
+LIMIT 5;
+
+--Finding the average order value for each user type
+SELECT
+        u.user_type
+        ,AVG(tot_amount) AS avg_order_value
+FROM orders o
+JOIN users u
+        ON o.user_id = u.user_id
+GROUP BY u.user_type;
+
+--Segmenting users based on their purchase history
+WITH user_preferences AS(
+        SELECT
+                u.user_id
+                ,p.category
+                ,COUNT(oi.product_id) AS number_of_purchases
+        FROM users u
+        LEFT JOIN orders o ON u.user_id = o.user_id
+        LEFT JOIN order_items oi ON o.order_id = oi.order_id
+        LEFT JOIN product p ON p.product_id = oi.product_id
+        GROUP BY u.user_id, p.category
+        ORDER BY number_of_purchases DESC
+        )
+
+SELECT
+        up.user_id
+        ,p.product_id
+        ,p.name
+FROM user_preferences up
+JOIN product p
+        ON up.category = p.category
+WHERE NOT EXISTS (
+        SELECT 1
+        FROM orders o
+        JOIN order_items oi
+                ON o.order_id = oi.order_id
+        WHERE p.product_id = oi.product_id AND o.user_id = up.user_id
+        )
+GROUP BY up.user_id, p.product_id,p. name
+ORDER BY up.user_id, p.product_id
+
+--Seasonal Trend
+SELECT
+        MONTH(order_date) AS order_month
+        ,COUNT(order_id) AS no_orders
+FROM orders
+GROUP BY order_month
+ORDER BY order_month ASC
+
+--Most Popular Product Categories
+SELECT
+        p.category
+        ,COUNT(oI.order_id) AS tot_orders
+FROM products p
+LEFT JOIN order_items oi
+        ON p.product_id = oi.product_id
+GROUP BY p.category
+ORDER BY tot_orders DESC
+
+--User Retention Analysis
+SELECT
+        user_id
+        ,COUNT(order_id) AS no_orders
+FROM orders
+HAVING COUNT(order_id) > 1
+
+--Average time spent on pages
+SELECT
+        page_id
+        ,AVG(duration) AS average_time_spent
+FROM page_views
+GROUP BY page_id
+
+--Analysis of Order Values Over Time
+SELECT
+        DATE_FORMAT(order_date, '%Y-%m') AS order_month
+        ,AVG(total_amount) AS avg_order_values
+FROM orders
+GROUP BY order_month
+ORDER BY order_month ASC"
+"--Tourist Trends
+WITH Nationality_Count AS (
+        SELECT
+                t.Nationality
+                , EXTRACT(YEAR FROM b.CheckInDate) AS Visit_Year 
+                , Count(*) AS Total_Count
+        FROM Tourists t
+        JOIN Bookings b
+                ON t.TouristID = b.TouristID
+        WHERE EXTRACT(YEAR FROM b.CheckInDate) = 2023
+        GROUP BY t.Nationality, EXTRACT(YEAR FROM b.CheckInDate)
+        )
+
+SELECT
+        Visit_Year
+        , Nationality
+        , Total_Count
+FROM Nationality_Count
+ORDER BY Total_Count DESC
+LIMIT 5
+
+--Hotel Occupancy Rate
+WITH Occupancy AS (
+        SELECT
+                h.HotelID
+                , h.Name
+                , h.Capacity
+                , EXTRACT(YEAR FROM b.CheckInDate) AS Year
+                , EXTRACT(Month FROM b.CheckInDate) AS Month
+                , SUM(b.CheckOutDate - b.CheckInDate) AS DaysBooked
+        FROM Hotels h
+        LEFT JOIN Bookings b
+                ON h.HotelID = b.HotelID
+        WHERE
+                EXTRACT(YEAR FROM b.CheckInDate) = 2023 AND
+                EXTRACT(MONTH FROM b.CheckInDate) = 11
+        GROUP BY HotelID, Name, Capacity, Year, Month
+        )
+
+SELECT
+        HotelID
+        , Name
+        , CASE
+                WHEN Capacity > 0 THEN SUM(DaysBooked) * 100.0/(Capacity * 30)
+                ELSE 0
+        END AS perc_occupancy
+FROM Occupancy
+GROUP BY HotelID, Name, Capacity
+ORDER BY perc_occupancy DESC
+
+
+--Popular Activities
+SELECT
+        a.Name
+        ,COUNT(ab.ActivityBookingID) AS tot_count
+FROM ActivityBookings ab
+LEFT JOIN Activities a
+        ON ab.ActivityID = a.ActivityID
+LEFT JOIN Tourists t
+        ON ab.TouristID = t.TouristID
+WHERE
+        t.age < 30
+GROUP BY a.Name
+ORDER BY tot_count DESC
+LIMIT 1;
+
+--Environmental Impact Monitoring
+SELECT
+        EXTRACT(YEAR FROM ab.Date) AS year
+        ,EXTRACT(YEAR FROM ab.Date) AS month
+        ,SUM(a.EnvironmentScore) AS tot_environment_score
+FROM ActivityBookings ab
+INNER JOIN Activities a
+        ON ab.ActivityID = a.ActivityID
+WHERE
+        EXTRACT(YEAR FROM ab.Date) = 2023
+        ,EXTRACT(YEAR FROM ab.Date) = 11
+GROUP BY year, month;
+
+--Business Analysis
+SELECT
+        b.HotelID
+        ,h.Name
+        ,SUM(p.Amount) AS tot_revenue
+FROM Payment p
+LEFT JOIN Bookings b
+        ON p.BookingID = b.BookingID
+LEFT JOIN Hotels h
+        ON b.HotelID = h.HotelID
+WHERE EXTRACT(YEAR FROM p.PaymentDate) = 2023
+GROUP BY HotelID, h.Name
+ORDER BY tot_revenue DESC
+LIMIT 3;"
+"
+//Retrieve All Information
+SELECT * FROM Sessions
+WHERE TIME(Date) > '18:00:00';
+
+
+//Joining Tables
+SELECT
+        s.SessionID
+        ,s.Date
+        ,s.Topic
+        ,m.Name
+FROM Sessions s
+LEFT JOIN Mentors m
+        ON m.MentorID = s.MentorID;
+
+
+//Aggregation
+SELECT
+        m.Name
+        ,COUNT(s.SessionID) AS number_of_sessions_hosted
+FROM Sessions s
+LEFT JOIN Mentors m
+        ON m.MentorID = s.MentorID
+GROUP BY m.Name
+
+//Complex Query
+SELECT
+        a.AttendeeID
+        ,a.Name
+FROM Attendees a
+JOIN Attendance_Record_Table art
+        ON art.AttendeeID = a.AttendeeID
+JOIN Sessions s
+        ON s.SessionID = art.SessionID
+WHERE 
+        a.SkillLevel = ""Intermediate"" AND
+        s.Topic LIKE ""%Python%"" "
+"//Retrieve Specific Information
+SELECT Title FROM Books
+WHERE
+        PublicationYear > 2000
+        AND Genre = 'Fantasy'
+
+//Joining Tables
+SELECT
+        b.Title
+        ,a.Name
+        ,a.Nationality
+FROM Books b
+LEFT JOIN Authors a
+        ON b.AuthorID = a.AuthorID
+
+//Aggregation
+SELECT
+        a.Name
+        ,COUNT(b.BookID) AS NumberOfBooks
+FROM Books b
+LEFT JOIN Authors a
+        ON b.AuthorID = a.AuthorID
+GROUP BY a.Name
+
+//Complex Query
+SELECT
+        m.Name
+FROM Borrowings br
+JOIN Books b
+        ON br.BookID = b.BookID
+JOIN Authors a
+        ON b.AuthorID = a.AuthorID
+JOIN Members m
+        ON br.MemberID = m.MemberID
+WHERE 
+        br.ReturnDate IS NULL
+        AND a.DateOfBirth < '1990-01-01'"
+"--top 5 most popular product categories by total sales
+--top sales
+WITH top_sales AS(
+    SELECT
+        o.order_date
+        ,p.category
+        ,(p.price * o.quantity) AS sales
+    FROM Products p
+    INNER JOIN Orders o
+        ON p.product_id = o.product_id
+    )
+
+SELECT
+    category
+    ,SUM(sales) AS tot_sales
+FROM top_sales
+WHERE year(order_date) = 2023 AND quarter(order_date) --Given that the last quarter is Q4 2023
+GROUP BY category
+ORDER BY tot_sales DESC
+LIMIT 5;
+
+--Find customers who purchased specific products and also bought other products from the same category within the last 6 months.
+WITH customer_order_product AS(
+    SELECT
+        c.customer_id
+        ,c.name AS customer_name
+        ,p.category
+        ,o.product_id
+        ,o.order_date
+    FROM Orders o
+    INNER JOIN Customers c
+        ON o.customer_id = c.customer_id
+    INNER JOIN Products p
+        ON o.product_id = p.product_id
+    WHERE o.order_date >= (CURRENT_DATE - INTERVAL '6 months')
+    )
+
+,agg_product AS (
+    SELECT
+        c1.customer_id
+        ,c1.customer_name
+        ,COUNT(c1.product_id) AS product_count
+    FROM customer_order_product c1
+    JOIN customer_order_product c2
+        ON c1.customer_id=c2.customer_id
+        AND c1.category=c2.category
+        AND c1.product_id!=c2.product_id
+    GROUP BY c1.customer_id, c1.customer_name
+    )
+
+SELECT customer_name
+FROM agg_product
+WHERE product_count>1;
+
+
+--Analyze customer reviews and calculate the average rating for each product category, grouped by location.
+SELECT
+    c.location
+    ,p.category
+    ,AVG(r.rating) as avg_rating
+FROM Reviews r
+INNER JOIN Customers c
+    ON r.customer_id=c.customer_id
+INNER JOIN Products p
+    ON r.product_id=p.product_id
+GROUP BY c.location, p.category;
+
+--Identify customers who haven't made any purchases in the last year. Segment them by location and calculate the total potential lost revenue based on their average order value.
+WITH customer_last_order AS(
+    SELECT
+        c.location 
+        ,c.customer_id
+        ,MAX(o.order_date) AS last_order
+    FROM Customers c
+    LEFT JOIN Orders o
+        ON c.customer_id = o.customer_id
+)
+
+,customers_no_purchase AS(
+    SELECT
+        c.location 
+        ,c.customer_id
+    FROM customer_last_order
+    WHERE (last_order < (CURRENT_DATE - INTERVAL '1 year')) OR (last_order IS NULL)
+    )
+
+,avg_order_value_table AS(
+    SELECT
+        c.location 
+        ,c.customer_id
+        ,AVG(o.total_amount) AS avg_order_value
+    FROM customers_no_purchase c
+    LEFT JOIN Orders o
+        ON c.customer_id = o.customer_id
+    )
+SELECT
+    location
+    ,SUM(avg_order_value) AS tot_revenue
+FROM avg_order_value_table
+GROUP BY location;"
+"WITH recursive_chain AS(
+    SELECT
+        user_id
+        ,referrer_id
+        ,1 AS level
+    FROM Users
+    WHERE referrer_id IS NOT NULL
+
+    UNION ALL
+
+    SELECT
+        u.user_id
+        ,u.referrer_id
+        ,rc.level + 1
+    FROM Users u
+    JOIN recursive_chain rc
+        ON u.referrer_id = rc.user_id
+)
+
+SELECT * FROM recursive_chain;
+
+
+
+WITH pair_products AS(
+    SELECT
+        p1.category
+        , t1.product_id AS product1
+        , t2.product_id AS product2
+        , COUNT(*) AS pair_count
+    FROM Transactions t1
+    INNER JOIN Transactions t2
+        ON (t1.product_id > t2.product_id)
+        AND (t1.transaction_id = t2.transaction_id)
+    INNER JOIN Products p1
+        ON (t1.product_id = p1.product_id)
+    INNER JOIN Products p2
+        ON (t2.product_id = p2.product_id)
+        AND (p1.category = p2.category)
+    GROUP BY p1.category, t1.product_id, t2.product_id 
+)
+
+SELECT
+    category
+    ,product1 || ' - ' || product2 AS product_pair
+    ,pair_count
+FROM pair_products
+ORDER BY pair_count DESC, category DESC;"
